@@ -258,16 +258,49 @@ a { color: inherit; }
 .sr-only:focus-visible + .upload { outline: 3px solid var(--accent); outline-offset: 3px; }
 .hint { font-size: 0.85rem; color: rgb(255 255 255 / 0.7); }
 .error { font-size: 0.9rem; font-weight: 600; color: #ffb4a8; }
-.colors { display: flex; flex-wrap: wrap; gap: 12px; }
-.color {
-  display: inline-flex; align-items: center; gap: 10px; min-height: var(--tap); padding: 4px 16px 4px 4px; cursor: pointer;
-  border-radius: 999px; background: rgb(255 255 255 / 0.06); border: 2px solid rgb(255 255 255 / 0.15); font-size: 0.95rem;
+/* Colour pickers: in-page palette; the system picker is only behind "More colours". */
+/* The open panel sits in the flow, pushing the next controls down instead of covering them. */
+.colors { display: grid; justify-items: start; gap: 12px; }
+.picker__btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: var(--tap); padding: 4px 14px 4px 4px; cursor: pointer;
+  border-radius: 999px; font: inherit; font-size: 0.95rem; color: #fff;
+  background: rgb(255 255 255 / 0.06); border: 2px solid rgb(255 255 255 / 0.15); transition: border-color 0.2s, background 0.2s;
 }
-.color input { width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; }
-.color input::-webkit-color-swatch-wrapper { padding: 0; }
-.color input::-webkit-color-swatch { border: 2px solid rgb(255 255 255 / 0.3); border-radius: 50%; }
-.color input::-moz-color-swatch { border: 2px solid rgb(255 255 255 / 0.3); border-radius: 50%; }
-.color:focus-within { border-color: var(--accent); }
+.picker__btn:hover, .picker__btn[aria-expanded="true"] { border-color: #fff; background: rgb(255 255 255 / 0.12); }
+.picker__btn::after { content: ""; width: 7px; height: 7px; margin-left: 2px; border: solid rgb(255 255 255 / 0.7); border-width: 0 2px 2px 0; rotate: 45deg; translate: 0 -2px; transition: rotate 0.2s; }
+.picker__btn[aria-expanded="true"]::after { rotate: 225deg; translate: 0 2px; }
+.picker__dot { width: 32px; height: 32px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.3); }
+.picker__hex { font: 600 0.8rem/1 ui-monospace, "SF Mono", Menlo, monospace; color: rgb(255 255 255 / 0.65); letter-spacing: 0.04em; }
+.picker__pop {
+  margin-top: 10px; width: min(340px, 100vw - 32px);
+  padding: 14px; border-radius: 20px; display: grid; gap: 14px;
+  background: #2a1e1a; border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.7);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .picker__pop { animation: pop-in 0.18s cubic-bezier(.2,.7,.2,1); }
+}
+@keyframes pop-in { from { opacity: 0; transform: translateY(-6px) scale(0.98); } }
+.picker__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.picker__grid button {
+  aspect-ratio: 1; min-width: 44px; border-radius: 50%; cursor: pointer; padding: 0;
+  background: var(--c); border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.3);
+  transition: transform 0.15s;
+}
+.picker__grid button:hover { transform: scale(1.08); }
+.picker__grid button[aria-pressed="true"] { border-color: #fff; box-shadow: inset 0 0 0 3px #2a1e1a; }
+.picker__row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.picker__hexfield {
+  display: inline-flex; align-items: center; gap: 2px; min-height: var(--tap); padding: 0 12px; border-radius: 12px; flex: 1; min-width: 0;
+  background: rgb(255 255 255 / 0.06); border: 2px solid rgb(255 255 255 / 0.15);
+  font: 600 0.95rem/1 ui-monospace, "SF Mono", Menlo, monospace; color: rgb(255 255 255 / 0.6);
+}
+.picker__hexfield:focus-within { border-color: var(--accent); }
+.picker__hexfield:has(input[aria-invalid="true"]) { border-color: #ff8a7a; }
+.picker__hexfield input { width: 100%; min-width: 0; border: 0; background: none; color: #fff; font: inherit; text-transform: uppercase; outline: none; }
+.picker__more { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 6px; cursor: pointer; font-size: 0.9rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
+.picker__more:hover { text-decoration: underline; }
+.sr-only:focus-visible + .picker__more { outline: 3px solid var(--accent); outline-offset: 2px; }
 .swatches { display: flex; flex-wrap: wrap; gap: 10px; }
 .swatches button {
   display: inline-flex; align-items: center; gap: 10px; min-height: var(--tap);

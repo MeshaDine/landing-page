@@ -66,7 +66,82 @@ const primaryInput = document.getElementById("brand-primary");
 const secondaryInput = document.getElementById("brand-secondary");
 const swatches = [...document.querySelectorAll("[data-brand]")];
 
+// Restaurant-friendly palette shared by both pickers.
+const PALETTE = [
+  ["#971c1c", "Chilli red"], ["#c2410c", "Paprika"], ["#ee8e1d", "Saffron"], ["#ffd400", "Turmeric"],
+  ["#c9a227", "Mustard"], ["#7a3e00", "Chai"], ["#00392b", "Forest"], ["#2f6f5e", "Mint leaf"],
+  ["#0f766e", "Teal"], ["#2d3a8c", "Indigo"], ["#e8618c", "Rose"], ["#1f1512", "Charcoal"],
+];
+const HEX = /^#[0-9a-f]{6}$/i;
+const pickers = [primaryInput, secondaryInput].map((input) => {
+  const key = input.id.replace("brand-", "");
+  const picker = {
+    input,
+    btn: document.getElementById(`btn-${key}`),
+    pop: document.getElementById(`pop-${key}`),
+    hex: document.getElementById(`hex-${key}`),
+  };
+  picker.grid = picker.pop.querySelector(".picker__grid");
+  picker.grid.append(...PALETTE.map(([value, name]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.style.setProperty("--c", value);
+    b.dataset.value = value;
+    b.setAttribute("aria-label", name);
+    b.addEventListener("click", () => setColour(picker, value));
+    return b;
+  }));
+  picker.btn.addEventListener("click", () => togglePicker(picker));
+  picker.hex.addEventListener("input", () => {
+    const raw = picker.hex.value.trim().replace(/^#?/, "#");
+    // Flag non-hex characters at once; a short but valid prefix is still being typed.
+    picker.hex.setAttribute("aria-invalid", String(!/^#[0-9a-f]{0,6}$/i.test(raw)));
+    if (HEX.test(raw)) setColour(picker, raw.toLowerCase());
+  });
+  picker.hex.addEventListener("blur", () => {
+    if (!HEX.test(picker.hex.value.trim().replace(/^#?/, "#"))) picker.hex.setAttribute("aria-invalid", "true");
+  });
+  return picker;
+});
+
+function setColour(picker, value) {
+  picker.input.value = value;
+  checkPreset(null);
+  render();
+}
+
+function togglePicker(picker, open = picker.pop.hidden) {
+  pickers.forEach((p) => {
+    const show = p === picker && open;
+    p.pop.hidden = !show;
+    p.btn.setAttribute("aria-expanded", String(show));
+  });
+}
+
+function closePickers(returnFocus) {
+  const openPicker = pickers.find((p) => !p.pop.hidden);
+  if (!openPicker) return;
+  togglePicker(openPicker, false);
+  if (returnFocus) openPicker.btn.focus();
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePickers(true); });
+document.addEventListener("click", (e) => { if (!e.target.closest(".picker")) closePickers(false); });
+
+function syncPickers() {
+  pickers.forEach((p) => {
+    const value = p.input.value.toLowerCase();
+    p.btn.querySelector(".picker__dot").style.setProperty("--c", value);
+    p.btn.querySelector(".picker__hex").textContent = value.toUpperCase();
+    if (document.activeElement !== p.hex) {
+      p.hex.value = value.slice(1).toUpperCase();
+      p.hex.setAttribute("aria-invalid", "false");
+    }
+    p.grid.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.value === value)));
+  });
+}
+
 function render() {
+  syncPickers();
   const primary = primaryInput.value;
   const name = nameInput.value.trim() || "Your restaurant";
   brandStage.style.setProperty("--brand", primary);

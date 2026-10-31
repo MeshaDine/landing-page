@@ -228,8 +228,36 @@
             </div>
 
             <div class="colors">
-              <label class="color" for="brand-primary"><input id="brand-primary" type="color" value="#971c1c"> Main colour</label>
-              <label class="color" for="brand-secondary"><input id="brand-secondary" type="color" value="#ee8e1d"> Accent colour</label>
+              <div class="picker">
+                <button type="button" class="picker__btn" id="btn-primary" aria-expanded="false" aria-controls="pop-primary">
+                  <span class="picker__dot" aria-hidden="true"></span><span>Main colour</span><code class="picker__hex"></code>
+                </button>
+                <div class="picker__pop" id="pop-primary" role="group" aria-label="Main colour" hidden>
+                  <div class="picker__grid"></div>
+                  <div class="picker__row">
+                    <label class="picker__hexfield" for="hex-primary"><span aria-hidden="true">#</span><span class="sr-only">Main colour hex code</span>
+                      <input id="hex-primary" type="text" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="off">
+                    </label>
+                    <input id="brand-primary" class="sr-only" type="color" value="#971c1c">
+                    <label class="picker__more" for="brand-primary">More colours…</label>
+                  </div>
+                </div>
+              </div>
+              <div class="picker">
+                <button type="button" class="picker__btn" id="btn-secondary" aria-expanded="false" aria-controls="pop-secondary">
+                  <span class="picker__dot" aria-hidden="true"></span><span>Accent colour</span><code class="picker__hex"></code>
+                </button>
+                <div class="picker__pop" id="pop-secondary" role="group" aria-label="Accent colour" hidden>
+                  <div class="picker__grid"></div>
+                  <div class="picker__row">
+                    <label class="picker__hexfield" for="hex-secondary"><span aria-hidden="true">#</span><span class="sr-only">Accent colour hex code</span>
+                      <input id="hex-secondary" type="text" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="off">
+                    </label>
+                    <input id="brand-secondary" class="sr-only" type="color" value="#ee8e1d">
+                    <label class="picker__more" for="brand-secondary">More colours…</label>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="field">
