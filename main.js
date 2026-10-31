@@ -5,13 +5,14 @@ const CONTACT = {
   message: "Hi Mesha Dine, I'd like a demo for my restaurant.",
 };
 
+const whatsappHref = (text) => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
 const ctaHrefs = {
-  whatsapp: `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(CONTACT.message)}`,
+  whatsapp: whatsappHref(CONTACT.message),
   email: `mailto:${CONTACT.email}?subject=${encodeURIComponent("Mesha Dine demo")}`,
 };
 document.querySelectorAll("[data-cta]").forEach((a) => {
-  a.href = ctaHrefs[a.dataset.cta];
-  if (a.dataset.cta === "whatsapp") { a.target = "_blank"; a.rel = "noopener"; }
+  if (ctaHrefs[a.dataset.cta]) a.href = ctaHrefs[a.dataset.cta];
+  if (a.dataset.cta.startsWith("whatsapp")) { a.target = "_blank"; a.rel = "noopener"; }
 });
 document.querySelectorAll("[data-cta-label]").forEach((a) => (a.textContent = CONTACT.email));
 document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
@@ -38,30 +39,105 @@ const stepObserver = new IntersectionObserver(
 );
 steps.forEach((s) => stepObserver.observe(s));
 
-// Brand demo: re-skin the phone like the diner app does per restaurant.
+// Brand preview: re-skin the phone like the diner app does per restaurant (customer-fe branding.ts).
+const luminance = (hex) => {
+  const ch = (i) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * ch(1) + 0.7152 * ch(3) + 0.0722 * ch(5);
+};
+const contrast = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+// White or near-black text, whichever reads better on the colour (same rule as the diner app).
+const readableOn = (hex) =>
+  contrast(luminance(hex), 1) >= contrast(luminance(hex), luminance("#111111")) ? "#ffffff" : "#111111";
+
+const MAX_LOGO_BYTES = 2 * 1024 * 1024;
+const LOGO_TYPES = ["image/png", "image/jpeg", "image/svg+xml"];
 const brandStage = document.querySelector(".brand__stage");
 const brandName = document.querySelector("[data-brand-name]");
-const swatches = document.querySelectorAll("[data-brand]");
+const brandLogo = document.querySelector("[data-brand-logo]");
+const brandCta = document.querySelector('[data-cta="whatsapp-brand"]');
+const nameInput = document.getElementById("brand-name");
+const logoInput = document.getElementById("brand-logo");
+const logoClear = document.getElementById("logo-clear");
+const logoError = document.getElementById("logo-error");
+const primaryInput = document.getElementById("brand-primary");
+const secondaryInput = document.getElementById("brand-secondary");
+const swatches = [...document.querySelectorAll("[data-brand]")];
+
+function render() {
+  const primary = primaryInput.value;
+  const name = nameInput.value.trim() || "Your restaurant";
+  brandStage.style.setProperty("--brand", primary);
+  brandStage.style.setProperty("--accent", secondaryInput.value);
+  brandStage.style.setProperty("--on-brand", readableOn(primary));
+  // Brand-coloured text on the white menu needs 3:1, else fall back to dark ink.
+  brandStage.style.setProperty("--brand-ink", contrast(luminance(primary), 1) >= 3 ? primary : "#222222");
+  brandName.textContent = name;
+  brandLogo.alt = name;
+  const logoNote = brandLogo.hidden ? "" : " I'll send our logo in this chat.";
+  brandCta.href = whatsappHref(
+    `Hi Mesha Dine, I'd like a demo for my restaurant, ${name}. Our colours are ${primary} (main) and ${secondaryInput.value} (accent).${logoNote}`,
+  );
+}
+
+function checkPreset(btn) {
+  swatches.forEach((b) => b.setAttribute("aria-checked", String(b === btn)));
+  // Keep one swatch tabbable even when a custom colour is picked.
+  const tabbable = btn || swatches[0];
+  swatches.forEach((b) => (b.tabIndex = b === tabbable ? 0 : -1));
+}
+
+function applyPreset(btn) {
+  primaryInput.value = btn.dataset.brand;
+  secondaryInput.value = btn.dataset.accent;
+  nameInput.value = btn.dataset.name;
+  checkPreset(btn);
+  render();
+}
+
 swatches.forEach((btn, i) => {
-  btn.addEventListener("click", () => select(btn));
+  btn.addEventListener("click", () => applyPreset(btn));
   btn.addEventListener("keydown", (e) => {
     const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
     if (!step) return;
     e.preventDefault();
     const next = swatches[(i + step + swatches.length) % swatches.length];
-    select(next);
+    applyPreset(next);
     next.focus();
   });
 });
-function select(btn) {
-  swatches.forEach((b) => {
-    b.setAttribute("aria-checked", String(b === btn));
-    b.tabIndex = b === btn ? 0 : -1;
-  });
-  brandStage.style.setProperty("--brand", btn.dataset.brand);
-  brandName.textContent = btn.dataset.name;
+nameInput.addEventListener("input", render);
+[primaryInput, secondaryInput].forEach((el) => el.addEventListener("input", () => { checkPreset(null); render(); }));
+
+// The logo is only shown from a local object URL; it never leaves the device.
+function setLogo(file) {
+  if (brandLogo.src.startsWith("blob:")) URL.revokeObjectURL(brandLogo.src);
+  brandLogo.hidden = !file;
+  logoClear.hidden = !file;
+  if (file) brandLogo.src = URL.createObjectURL(file);
+  else brandLogo.removeAttribute("src");
+  render();
 }
-select(swatches[0]);
+logoInput.addEventListener("change", () => {
+  const file = logoInput.files[0];
+  logoInput.value = "";
+  if (!file) return;
+  // Some phones report an empty type for SVGs, so fall back to the extension.
+  const okType = LOGO_TYPES.includes(file.type) || (!file.type && /\.(png|jpe?g|svg)$/i.test(file.name));
+  const problem = !okType
+    ? "That file type isn't supported. Choose a PNG, JPG or SVG."
+    : file.size > MAX_LOGO_BYTES
+      ? `That file is ${(file.size / 1024 / 1024).toFixed(1)}MB. Choose a logo up to 2MB.`
+      : "";
+  logoError.textContent = problem;
+  logoError.hidden = !problem;
+  if (!problem) setLogo(file);
+});
+logoClear.addEventListener("click", () => { setLogo(null); logoInput.focus(); });
+
+applyPreset(swatches[0]);
 
 // Motion fallback for browsers without CSS scroll timelines (Firefox, older Safari).
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
