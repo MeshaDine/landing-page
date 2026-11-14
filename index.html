@@ -91,7 +91,7 @@
         <div class="how__track">
           <div class="how__grid">
             <div class="steps">
-              <details name="how" open data-shot="assets/img/step-1.webp">
+              <details name="how" open data-screens="scan">
                 <summary><span class="step__n">01</span><span class="step__t">Scan the table’s QR code</span></summary>
                 <ul>
                   <li>Every table gets its own code.</li>
@@ -99,7 +99,7 @@
                   <li>Nothing to download.</li>
                 </ul>
               </details>
-              <details name="how" data-shot="assets/img/step-2.webp">
+              <details name="how" data-screens="start join">
                 <summary><span class="step__n">02</span><span class="step__t">Start a table, or join with a PIN</span></summary>
                 <ul>
                   <li>The first guest types a nickname and starts the table.</li>
@@ -107,7 +107,7 @@
                   <li>Everyone else at the table joins with it.</li>
                 </ul>
               </details>
-              <details name="how" data-shot="assets/img/step-3.webp">
+              <details name="how" data-screens="menu">
                 <summary><span class="step__n">03</span><span class="step__t">Fill one shared cart</span></summary>
                 <ul>
                   <li>Everyone adds dishes to the same cart from their own phone.</li>
@@ -115,7 +115,7 @@
                   <li>The host places the order for the table.</li>
                 </ul>
               </details>
-              <details name="how" data-shot="assets/img/step-4.webp">
+              <details name="how" data-screens="orders">
                 <summary><span class="step__n">04</span><span class="step__t">Orders and the bill, live</span></summary>
                 <ul>
                   <li>Order more rounds any time.</li>
@@ -125,7 +125,21 @@
               </details>
             </div>
             <div class="how__shot" aria-hidden="true">
-              <div class="phone"><img class="how__phone" src="assets/img/step-1.webp" alt="" width="600" height="1299" loading="lazy"></div>
+              <div class="phone how__phone">
+                <div class="how__scr scan is-on" data-screen="scan">
+                  <div class="scan__cam">
+                    <div class="scan__stand"><b>Scan to order</b><img src="assets/img/qr.svg" alt="" width="25" height="25"><span>Table 3</span></div>
+                    <i class="scan__frame"></i><i class="scan__line"></i><i class="scan__ok"></i>
+                    <span class="scan__link">Kerala Spice House · Open menu</span>
+                  </div>
+                  <div class="scan__load"><b>Kerala Spice House</b><i></i></div>
+                  <img class="scan__start" src="assets/img/step-1.webp" alt="" width="600" height="1299" loading="lazy">
+                </div>
+                <img class="how__scr" data-screen="start" src="assets/img/step-1.webp" alt="" width="600" height="1299" loading="lazy">
+                <img class="how__scr" data-screen="join" src="assets/img/step-2.webp" alt="" width="600" height="1299" loading="lazy">
+                <img class="how__scr" data-screen="menu" src="assets/img/step-3.webp" alt="" width="600" height="1299" loading="lazy">
+                <img class="how__scr" data-screen="orders" src="assets/img/step-4.webp" alt="" width="600" height="1299" loading="lazy">
+              </div>
             </div>
           </div>
         </div>

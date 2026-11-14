@@ -152,9 +152,56 @@ a { color: inherit; }
   box-shadow: 0 2px 8px -1.5px rgb(0 0 0 / 0.08), 0 10px 34px -2.25px rgb(0 0 0 / 0.09), 0 0 0 1px rgb(0 0 0 / 0.03);
 }
 .steps ul { margin: 0; padding: 0 32px 32px 59px; color: var(--featured-text); font-size: 1.125rem; font-weight: 500; }
+.steps details { interpolate-size: allow-keywords; }
+.steps details::details-content { block-size: 0; overflow: clip; transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete; }
+.steps details[open]::details-content { block-size: auto; }
 .how__shot { position: relative; display: grid; place-items: center; min-height: 520px; border-radius: 24px; overflow: hidden; background: #000 url(assets/img/glow.webp) center / cover; container-type: size; }
 .how__shot .phone { width: auto; min-width: 0; height: min(591px, 100cqh - 48px); }
-@media (min-width: 960px) {
+/* Screens are stacked; the outgoing one fades first, then the incoming one fades in. */
+.how__phone { display: grid; --screen-r: 37px; }
+.how__phone > .how__scr { grid-area: 1 / 1; min-height: 0; border-radius: var(--screen-r); opacity: 0; scale: 0.97; transition: opacity 0.2s, scale 0.2s; }
+.how__phone > .how__scr.is-on { opacity: 1; scale: none; transition-duration: 0.35s; transition-delay: 0.2s; }
+
+/* Step 1: the camera finds the table's QR code, then the menu loads (5s loop, CSS only). */
+.scan { position: relative; overflow: hidden; background: #fff; container-type: size; }
+.scan > * { position: absolute; inset: 0; }
+.scan__cam { overflow: hidden; }
+.scan__cam::before { content: ""; position: absolute; inset: -8%; background: url(assets/img/scan-bg.webp) 52% 72% / cover; filter: blur(5px) brightness(0.75); }
+.scan__stand {
+  position: absolute; left: 50%; top: 46%; translate: -50% -50%; width: 46cqw; padding: 5cqw; border-radius: 4cqw;
+  display: grid; gap: 2.5cqw; justify-items: center; background: #fff; color: #555; font: 500 3.6cqw/1.2 var(--sans);
+  box-shadow: 0 4cqw 10cqw rgb(0 0 0 / 0.45);
+}
+.scan__stand b { color: var(--fill); font-size: 4.6cqw; }
+.scan__stand img { width: 100%; height: auto; }
+.scan__frame {
+  position: absolute; left: 50%; top: 46%; translate: -50% -50%; width: 74cqw; aspect-ratio: 1;
+  border: 1.2cqw solid #fff; border-radius: 6cqw;
+  mask: conic-gradient(at 20cqw 20cqw, #0000 75%, #000 0) 0 0 / calc(100% - 20cqw) calc(100% - 20cqw);
+}
+.scan__line { position: absolute; left: 50%; top: calc(46% - 34cqw); width: 64cqw; height: 0.8cqw; translate: -50% 0; border-radius: 1cqw; background: linear-gradient(90deg, #0000, var(--fill) 20% 80%, #0000); box-shadow: 0 0 4cqw 1cqw rgb(255 90 30 / 0.55); opacity: 0; }
+.scan__ok { position: absolute; left: 50%; top: 46%; translate: -50% -50%; width: 16cqw; aspect-ratio: 1; border-radius: 50%; background: #34c759; box-shadow: 0 2cqw 6cqw rgb(0 0 0 / 0.35); opacity: 0; scale: 0.4; }
+.scan__ok::after { content: ""; position: absolute; left: 34%; top: 22%; width: 26%; height: 46%; border: solid #fff; border-width: 0 1.4cqw 1.4cqw 0; rotate: 45deg; }
+.scan__link { position: absolute; left: 50%; bottom: 14cqh; translate: -50% 3cqw; padding: 2.4cqw 4.4cqw; border-radius: 99px; background: #ffd60a; color: #1b1b1b; font: 600 3.6cqw var(--sans); white-space: nowrap; opacity: 0; }
+.scan__load { display: grid; place-content: center; justify-items: center; gap: 5cqw; background: #fff; opacity: 0; }
+.scan__load b { color: var(--fill); font-size: 6.4cqw; font-weight: 700; }
+.scan__load i { width: 40cqw; height: 1.2cqw; border-radius: 1cqw; background: #f1e6dc; overflow: hidden; }
+.scan__load i::after { content: ""; display: block; width: 0; height: 100%; background: var(--fill); }
+.scan__start { width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; }
+.scan.is-on .scan__line { animation: scan-line 5s infinite; }
+.scan.is-on .scan__frame { animation: scan-frame 5s infinite; }
+.scan.is-on .scan__ok { animation: scan-ok 5s infinite; }
+.scan.is-on .scan__link { animation: scan-link 5s infinite; }
+.scan.is-on .scan__load { animation: scan-load 5s infinite; }
+.scan.is-on .scan__load i::after { animation: scan-bar 5s infinite; }
+.scan.is-on .scan__start { animation: scan-start 5s infinite; }
+@keyframes scan-line { 0%, 4% { opacity: 0; translate: -50% 0; } 7% { opacity: 1; } 31% { opacity: 1; translate: -50% 68cqw; } 34%, 100% { opacity: 0; translate: -50% 68cqw; } }
+@keyframes scan-frame { 0%, 34% { border-color: #fff; } 38%, 80% { border-color: #34c759; } 82%, 100% { border-color: #fff; } }
+@keyframes scan-ok { 0%, 35% { opacity: 0; scale: 0.4; } 40% { opacity: 1; scale: 1.1; } 43%, 80% { opacity: 1; scale: 1; } 82%, 100% { opacity: 0; scale: 1; } }
+@keyframes scan-link { 0%, 40% { opacity: 0; translate: -50% 3cqw; } 46%, 80% { opacity: 1; translate: -50% 0; } 82%, 100% { opacity: 0; translate: -50% 0; } }
+@keyframes scan-load { 0%, 50% { opacity: 0; } 54%, 80% { opacity: 1; } 81%, 100% { opacity: 0; } }
+@keyframes scan-bar { 0%, 54% { width: 0; } 72%, 100% { width: 100%; } }
+@keyframes scan-start { 0%, 74% { opacity: 0; } 78%, 95% { opacity: 1; } 100% { opacity: 0; } }@media (min-width: 960px) {
   .how__grid { grid-template-columns: 1fr 539px; }
   .how__shot { min-height: 750px; }
 }
@@ -169,7 +216,7 @@ a { color: inherit; }
   .how__grid { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); grid-template-rows: minmax(0, 1fr) auto; gap: 12px; padding-block: 12px; }
   .how__shot { order: -1; min-height: 0; }
   .how__shot .phone { height: calc(100cqh - 24px); padding: 5px; border-radius: 26px; }
-  .how__shot .phone > img { border-radius: 21px; }
+  .how__shot .phone { --screen-r: 21px; }
   .steps { gap: 8px; }
   .steps summary, .steps details[open] summary { flex-direction: row; align-items: center; gap: 14px; padding: 12px 16px; font-size: 1.0625rem; }
   .step__n { width: 40px; height: 40px; border-radius: 10px; }

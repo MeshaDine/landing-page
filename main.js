@@ -55,27 +55,34 @@ document.addEventListener("keydown", (e) => {
 });
 
 // How it works: the open step picks the phone screen. While the grid is pinned (sticky),
-// scroll progress through the track picks the open step, and a click scrolls to its step.
-const howPhone = document.querySelector(".how__phone");
+// scroll progress through the track picks the open step and, within a step, which of its
+// screens shows (data-screens); a click scrolls to its step. Unpinned, a step shows its first screen.
+const howScreens = [...document.querySelectorAll(".how__scr")];
 const howTrack = document.querySelector(".how__track");
 const howGrid = howTrack.querySelector(".how__grid");
 const howSteps = [...howTrack.querySelectorAll("details")];
 const howPinned = () => getComputedStyle(howGrid).position === "sticky";
 const howRange = () => howTrack.offsetHeight - howGrid.offsetHeight;
+const showScreen = (name) => howScreens.forEach((s) => s.classList.toggle("is-on", s.dataset.screen === name));
 const syncHowStep = () => {
   if (!howPinned()) return;
   const progress = (howGrid.getBoundingClientRect().top - howTrack.getBoundingClientRect().top) / howRange();
-  const step = howSteps[Math.min(howSteps.length - 1, Math.floor(progress * howSteps.length))];
+  const at = Math.max(0, progress * howSteps.length);
+  const i = Math.min(howSteps.length - 1, Math.floor(at));
+  const step = howSteps[i];
   if (!step.open) step.open = true;
+  const screens = step.dataset.screens.split(" ");
+  showScreen(screens[Math.min(screens.length - 1, Math.floor((at - i) * screens.length))]);
 };
 howSteps.forEach((step, i) => {
-  new Image().src = step.dataset.shot;
-  step.addEventListener("toggle", () => { if (step.open) howPhone.src = step.dataset.shot; });
+  step.addEventListener("toggle", () => {
+    if (step.open) howPinned() ? syncHowStep() : showScreen(step.dataset.screens.split(" ")[0]);
+  });
   step.querySelector("summary").addEventListener("click", (e) => {
     if (!howPinned()) return;
     e.preventDefault();
     const stickyTop = parseFloat(getComputedStyle(howGrid).top);
-    const into = (howRange() * (i + 0.5)) / howSteps.length;
+    const into = (howRange() * (i + 0.2)) / howSteps.length;
     const top = scrollY + howTrack.getBoundingClientRect().top - stickyTop + into;
     scrollTo({ top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   });
