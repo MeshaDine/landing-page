@@ -115,7 +115,8 @@ a { color: inherit; }
 .hero__stage { --pw: min(351px, 62vw); position: relative; height: calc(var(--pw) * 1.772); margin-top: 40px; overflow: clip; }
 .band { position: absolute; left: 0; right: 0; bottom: 0; height: 80.4%; border-radius: 32px; overflow: hidden; background: linear-gradient(113deg, var(--band-from) 5.5%, var(--orange) 96%); }
 .band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-.hero__phone { position: absolute; left: 50%; top: 1.6%; width: var(--pw); translate: -50% 0; }
+.hero__lead { max-width: 34em; margin: -24px 0 40px; color: var(--muted); font-size: 1.125rem; text-wrap: balance; }
+.hero__phone { --w: calc(var(--pw) * 0.95); position: absolute; left: 50%; top: 2%; translate: -50% 0; }
 .mini { position: absolute; z-index: 2; background: #fff; color: #000; border-radius: 12px; padding: 20px; box-shadow: -16px 16px 8px rgb(0 0 0 / 0.1), inset 0 0 0 8px #fff, inset 0 0 5.8px 8px rgb(0 0 0 / 0.1); font-size: 0.75rem; }
 .mini--order { left: 20.9%; top: 29.9%; width: 230px; display: grid; gap: 8px; }
 .mini--order img { aspect-ratio: 3 / 2; object-fit: cover; border-radius: 8px; margin-bottom: 8px; }
@@ -124,7 +125,7 @@ a { color: inherit; }
 .mini dd { margin: 0; color: rgb(0 0 0 / 0.6); text-align: right; }
 .mini__foot { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
 .mini__foot strong { font-size: 1rem; font-weight: 500; color: rgb(0 0 0 / 0.8); }
-.status { display: inline-flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: 6px; border: 1px solid rgb(238 142 29 / 0.5); background: rgb(238 142 29 / 0.05); color: #a85c00; }
+.status { display: inline-flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: 6px; border: 1px solid rgb(29 111 214 / 0.5); background: rgb(29 111 214 / 0.05); color: #1d6fd6; }
 .status::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
 .mini--stat { left: 60.8%; top: 69%; width: 253px; display: grid; gap: 12px; }
 .mini__head, .mini__trend { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: rgb(0 0 0 / 0.8); }
@@ -156,10 +157,10 @@ a { color: inherit; }
 .steps details::details-content { block-size: 0; overflow: clip; transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete; }
 .steps details[open]::details-content { block-size: auto; }
 .how__shot { position: relative; display: grid; place-items: center; min-height: 520px; border-radius: 24px; overflow: hidden; background: #000 url(assets/img/glow.webp) center / cover; container-type: size; }
-.how__shot .phone { width: auto; min-width: 0; height: min(591px, 100cqh - 48px); }
+.how__shot .phone { --w: calc(min(591px, 100cqh - 48px) / 2.1); }
 /* Screens are stacked; the outgoing one fades first, then the incoming one fades in. */
-.how__phone { display: grid; --screen-r: 37px; }
-.how__phone > .how__scr { grid-area: 1 / 1; min-height: 0; border-radius: var(--screen-r); opacity: 0; scale: 0.97; transition: opacity 0.2s, scale 0.2s; }
+.how__phone { display: grid; }
+.how__phone > .how__scr { grid-area: 1 / 1; min-height: 0; opacity: 0; scale: 0.97; transition: opacity 0.2s, scale 0.2s; }
 .how__phone > .how__scr.is-on { opacity: 1; scale: none; transition-duration: 0.35s; transition-delay: 0.2s; }
 
 /* Step 1: the camera finds the table's QR code, then the menu loads (5s loop, CSS only). */
@@ -184,9 +185,12 @@ a { color: inherit; }
 .scan__ok::after { content: ""; position: absolute; left: 34%; top: 22%; width: 26%; height: 46%; border: solid #fff; border-width: 0 1.4cqw 1.4cqw 0; rotate: 45deg; }
 .scan__link { position: absolute; left: 50%; bottom: 14cqh; translate: -50% 3cqw; padding: 2.4cqw 4.4cqw; border-radius: 99px; background: #ffd60a; color: #1b1b1b; font: 600 3.6cqw var(--sans); white-space: nowrap; opacity: 0; }
 .scan__load { background: #fff; opacity: 0; }
-.scan__load i { position: absolute; inset: 7cqw 0 auto; height: 1cqw; }
+.scan__load i { position: absolute; inset: 13.5cqw 0 auto; height: 1cqw; }
 .scan__load i::after { content: ""; display: block; width: 0; height: 100%; background: #0a84ff; }
-.scan__start { width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; }
+.scan__start { opacity: 0; }
+/* White status bar over the camera, black once the page loads. */
+.how__phone:has(.scan.is-on) .sb { color: #fff; animation: sb-scan 5s infinite; }
+@keyframes sb-scan { 0%, 52% { color: #fff; } 54%, 97% { color: #000; } 100% { color: #fff; } }
 .scan.is-on .scan__line { animation: scan-line 5s infinite; }
 .scan.is-on .scan__frame { animation: scan-frame 5s infinite; }
 .scan.is-on .scan__ok { animation: scan-ok 5s infinite; }
@@ -214,8 +218,7 @@ a { color: inherit; }
   .how__track { height: calc(100svh - var(--nav-h) + 4 * 40svh); }
   .how__grid { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); grid-template-rows: minmax(0, 1fr) auto; gap: 12px; padding-block: 12px; }
   .how__shot { order: -1; min-height: 0; }
-  .how__shot .phone { height: calc(100cqh - 24px); padding: 5px; border-radius: 26px; }
-  .how__shot .phone { --screen-r: 21px; }
+  .how__shot .phone { --w: calc((100cqh - 24px) / 2.1); }
   .steps { gap: 8px; }
   .steps summary, .steps details[open] summary { flex-direction: row; align-items: center; gap: 14px; padding: 12px 16px; font-size: 1.0625rem; }
   .step__n { width: 40px; height: 40px; border-radius: 10px; }
@@ -226,17 +229,28 @@ a { color: inherit; }
 .exp { padding: clamp(56px, 7vw, 80px) 0; }
 .exp__grid { display: grid; gap: 16px; }
 .card { display: grid; align-content: start; gap: 16px; padding: 12px 12px 24px; border-radius: 32px; background: var(--surface); border: 1px solid var(--card-line); }
-.card > img { width: 100%; aspect-ratio: 588 / 370; object-fit: cover; border-radius: 24px; margin-bottom: 16px; }
-.card h3 { font-size: 1.5rem; padding-inline: 8px; }
-.card p { font-size: 1.125rem; color: var(--muted); padding-inline: 8px; }
+/* Card shots: the app screen greyed out, with the part that matters lifted out at full colour. */
+.shot { position: relative; aspect-ratio: 588 / 370; margin-bottom: 16px; border-radius: 24px; overflow: hidden; background: #f2f1ef; container-type: inline-size; }
+.shot > .ui:not(.shot__pop) { position: absolute; border-radius: 0; filter: grayscale(1); opacity: 0.45; }
+.shot--guest > .ui--guest { --u: calc(46cqw / 390); width: 46cqw; left: 27cqw; top: -9cqw; }
+.shot--admin > .ui--admin { --u: calc(100cqw / 1180); width: 100cqw; left: 3cqw; top: 3cqw; aspect-ratio: 1180 / 820; }
+.shot > .shot__pop {
+  position: absolute; aspect-ratio: auto; border-radius: calc(var(--u) * 18); background: #fff;
+  box-shadow: -16px 16px 8px rgb(0 0 0 / 0.1), inset 0 0 0 calc(var(--u) * 6) #fff, inset 0 0 6px calc(var(--u) * 6) rgb(0 0 0 / 0.1);
+}
+.shot--guest .shot__pop { --u: calc(33cqw / 200); left: 47.5cqw; top: 5cqw; width: 33cqw; padding: calc(var(--u) * 15); }
+.shot--admin .shot__pop { --u: calc(64cqw / 460); left: 7cqw; top: 17cqw; width: 64cqw; padding: calc(var(--u) * 10); }
+.shot--admin .shot__pop .a-card { border: 0; }
+.card > h3 { font-size: 1.5rem; padding-inline: 8px; }
+.card > p { font-size: 1.125rem; color: var(--muted); padding-inline: 8px; }
 .card--featured { background: var(--featured); border-color: transparent; }
-.card--featured h3 { color: #fff; }
-.card--featured p { color: var(--featured-text); }
+.card--featured > h3 { color: #fff; }
+.card--featured > p { color: var(--featured-text); }
 .card--photo { position: relative; padding: 0; overflow: hidden; min-height: 550px; border: 0; align-content: end; color: #fff; }
-.card--photo > img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; border-radius: 0; object-position: 50% 47%; }
+.card--photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 47%; }
 .card--photo div { position: relative; display: grid; gap: 16px; padding: 120px 32px 32px; background: linear-gradient(rgb(0 0 0 / 0), rgb(0 0 0 / 0.75) 120px); }
-.card--photo h3 { margin: 0; padding: 0; color: #fff; }
-.card--photo p { color: rgb(255 255 255 / 0.9); padding: 0; max-width: 60em; }
+.card--photo h3 { margin: 0; padding: 0; color: #fff; font-size: 1.5rem; }
+.card--photo p { color: rgb(255 255 255 / 0.9); padding: 0; max-width: 60em; font-size: 1.125rem; }
 @media (min-width: 860px) {
   .exp__grid { grid-template-columns: 1fr 1fr; }
   .card--photo { grid-column: 1 / -1; }
@@ -255,12 +269,42 @@ a { color: inherit; }
 .use__stage { position: relative; height: clamp(400px, 48vw, 600px); border-radius: 32px; overflow: hidden; background: #ff3c00 url(assets/img/use-bg.webp) center / cover; container-type: size; }
 .use__panel { position: absolute; inset: 0; display: grid; place-items: center; }
 
+/* iPhone 17 frame for every phone on the page. --w sets the width; bezel, band, buttons and
+   status bar scale off it. Screens inside start below the status bar (see .phone .ui). */
+.phone {
+  --w: 280px; --pad: calc(var(--w) * 0.03); --band: calc(var(--w) * 0.014); --metal: #d6c0a2;
+  position: relative; flex: none; width: var(--w); padding: var(--pad); border-radius: calc(var(--w) * 0.17);
+  background: #0d0d0d; container-type: inline-size;
+  box-shadow: inset 0 0 0 calc(var(--w) * 0.005) #2e2e2e, 0 0 0 var(--band) var(--metal), 0 0 0 calc(var(--band) + 1px) #9f8566,
+    0 calc(var(--w) * 0.14) calc(var(--w) * 0.22) calc(var(--w) * -0.1) rgb(0 0 0 / 0.5);
+}
+.phone > :not(.sb) { border-radius: calc(var(--w) * 0.14); overflow: hidden; }
+.phone::before, .phone::after { content: ""; position: absolute; width: calc(var(--w) * 0.012); border-radius: 2px; }
+.phone::before { right: calc(100% + var(--band)); top: 17%; height: 22%; background: linear-gradient(var(--metal) 0 14%, #0000 0 30%, var(--metal) 0 62%, #0000 0 70%, var(--metal) 0); }
+.phone::after { left: calc(100% + var(--band)); top: 27%; height: 34%; background: linear-gradient(var(--metal) 0 30%, #0000 0 74%, #c4ab8a 0); }
+.sb {
+  position: absolute; z-index: 4; inset: var(--pad) var(--pad) auto; height: calc(var(--w) * 0.125);
+  display: flex; align-items: center; justify-content: space-between; padding: calc(var(--w) * 0.012) calc(var(--w) * 0.075) 0 calc(var(--w) * 0.11);
+  color: #000; font: 600 calc(var(--w) * 0.044) / 1 -apple-system, system-ui, var(--sans); pointer-events: none;
+}
+.sb::before { content: "9:41"; }
+.sb::after {
+  content: ""; width: calc(var(--w) * 0.19); aspect-ratio: 68 / 12; background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 12'%3E%3Crect y='7.5' width='3' height='4' rx='.8'/%3E%3Crect x='4.5' y='5.5' width='3' height='6' rx='.8'/%3E%3Crect x='9' y='3' width='3' height='8.5' rx='.8'/%3E%3Crect x='13.5' y='.5' width='3' height='11' rx='.8'/%3E%3Cpath d='M29 11.5l-2.2-2.6a3.4 3.4 0 0 1 4.4 0zM24.6 6.6a6.8 6.8 0 0 1 8.8 0l-1.3 1.5a4.8 4.8 0 0 0-6.2 0zM22.3 4a10.3 10.3 0 0 1 13.4 0l-1.3 1.5a8.3 8.3 0 0 0-10.8 0z'/%3E%3Crect x='41.5' y='.5' width='22' height='11' rx='3.2' fill='none' stroke='%23000' stroke-opacity='.4'/%3E%3Crect x='43' y='2' width='19' height='8' rx='2'/%3E%3Cpath d='M65 4v4a2 2 0 0 0 0-4z' opacity='.4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.sb i { position: absolute; left: 50%; top: calc(var(--w) * 0.028); width: calc(var(--w) * 0.31); height: calc(var(--w) * 0.088); translate: -50% 0; border-radius: 99px; background: #000; }
+.phone .ui { border-top: calc(var(--u) * 52) solid #fff; }
+.phone .ui--staff { border-top-color: #fdfbf9; }
+.use__panel .phone { --w: calc(86cqh / 2.1); }
+/* The user story zooms in on Butter Chicken's + button. */
+#panel-user .phone { transform-origin: 82% 60%; }
+#panel-user .g-scroll { translate: 0 calc(var(--u) * -96); }
+
 /* Use cases screens: HTML copies of the real apps (customer-fe guest menu, partner-fe staff,
    kitchen and owner pages), laid out in the app's own px via --u and scaled to the device.
    Base styles are each story's final state; the keyframes start from its earlier state. */
 @property --u { syntax: "<length>"; inherits: true; initial-value: 0px; }
 .dev { --pad: 1.4cqh; container-type: inline-size; padding: var(--pad); background: #1b1b1b; box-shadow: inset 0 0 0 2px #8a8a8a, 0 40px 70px -30px rgb(0 0 0 / 0.5); }
-.dev--phone { width: calc((90cqh - 2 * var(--pad)) * 390 / 844 + 2 * var(--pad)); border-radius: calc(var(--pad) * 4.6); }
 .dev--tablet { width: min(92cqw, (86cqh - 2 * var(--pad)) * 1180 / 820 + 2 * var(--pad)); border-radius: calc(var(--pad) * 2.4); }
 .ui {
   --brand: #ff3c00; --fill: #e03400; --ink: #c52d00; --muted: #6b6866; --line: #e9e6e3; --chip: #f4f2f0;
@@ -287,7 +331,7 @@ a { color: inherit; }
 .pill--info { color: var(--info); background: #f8fbfe; }
 
 /* Guest menu (customer-fe) */
-.ui--guest { display: flex; flex-direction: column; gap: calc(var(--u) * 14); padding: calc(var(--u) * 16) calc(var(--u) * 16) 0; }
+.g-scroll { display: flex; flex-direction: column; gap: calc(var(--u) * 14); padding: calc(var(--u) * 16) calc(var(--u) * 16) 0; }
 .g-logo { align-self: center; height: calc(var(--u) * 34); width: auto; }
 .g-pin { display: flex; align-items: center; gap: calc(var(--u) * 8); padding: calc(var(--u) * 8) calc(var(--u) * 10) calc(var(--u) * 8) calc(var(--u) * 16); border-radius: calc(var(--u) * 18); background: #fff7f0; color: #555; font-size: calc(var(--u) * 13); }
 .g-pin b { color: var(--brand); font-size: calc(var(--u) * 16); letter-spacing: 0.3em; }
@@ -310,10 +354,68 @@ a { color: inherit; }
 .g-step, .g-add { display: inline-flex; align-items: center; justify-content: space-between; width: calc(var(--u) * 92); height: calc(var(--u) * 38); padding: 0 calc(var(--u) * 10); border: 1px solid var(--brand); border-radius: 99px; color: var(--brand); font-size: calc(var(--u) * 18); }
 .g-step span { font-size: calc(var(--u) * 15); }
 .g-add { justify-content: center; font-size: calc(var(--u) * 22); }
+/* Step 2's menu belongs to a table that was just started: empty cart, every dish shows +. */
+.flow__menu .g-cart, .flow__menu .g-ctl > * { display: none; }
+.flow__menu .g-ctl::before { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: calc(var(--u) * 92); height: calc(var(--u) * 38); border: 1px solid var(--brand); border-radius: 99px; color: var(--brand); font-size: calc(var(--u) * 22); }
 .g-menu { position: absolute; right: calc(var(--u) * 16); bottom: calc(var(--u) * 142); padding: calc(var(--u) * 14) calc(var(--u) * 24); border-radius: 99px; background: #2b2b2b; color: #fff; font-size: calc(var(--u) * 16); }
 .g-cart { position: absolute; inset: auto 0 calc(var(--u) * 70); display: flex; justify-content: space-between; align-items: center; padding: calc(var(--u) * 20) calc(var(--u) * 18); border-radius: calc(var(--u) * 12) calc(var(--u) * 12) 0 0; background: var(--brand); color: #111; font-size: calc(var(--u) * 16); font-weight: 600; }
 .g-nav { position: absolute; inset: auto 0 0; display: flex; justify-content: space-around; height: calc(var(--u) * 70); padding-top: calc(var(--u) * 14); border-top: 1px solid var(--line); background: #fff; color: #444; font-size: calc(var(--u) * 15); }
 .g-nav .is-on { color: var(--brand); }
+.g-target { position: relative; }
+/* A touch indicator, shown only by the stories. */
+.g-target::after, .flow .l-btn::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: calc(var(--u) * 46); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+  background: rgb(0 0 0 / 0.22); box-shadow: 0 0 0 calc(var(--u) * 2) rgb(255 255 255 / 0.75); opacity: 0; pointer-events: none;
+}
+
+/* Start and join a table (customer-fe welcome screens) */
+.ui--land { display: flex; flex-direction: column; gap: calc(var(--u) * 12); padding: calc(var(--u) * 12) calc(var(--u) * 12) calc(var(--u) * 16); }
+.l-hero { position: relative; flex: none; height: calc(var(--u) * 293); border-radius: calc(var(--u) * 48) calc(var(--u) * 48) calc(var(--u) * 12) calc(var(--u) * 12); background: #ffefe9; }
+.l-hero--short { height: calc(var(--u) * 178); }
+.l-logo { position: absolute; left: 50%; bottom: calc(var(--u) * -40); display: grid; place-items: center; width: calc(var(--u) * 80); aspect-ratio: 1; translate: -50% 0; border: calc(var(--u) * 3) solid #f4f5ed; border-radius: 50%; background: #fff; }
+.l-logo img { width: 66%; height: auto; }
+.l-art { align-self: center; width: calc(var(--u) * 200); height: auto; margin-top: calc(var(--u) * 44); }
+.l-h, .l-h2 { font-size: calc(var(--u) * 26); font-weight: 500; line-height: 1.5; text-align: center; }
+.l-p { padding-inline: calc(var(--u) * 8); color: rgb(0 0 0 / 0.6); font-size: calc(var(--u) * 16); line-height: 1.5; text-align: center; }
+.l-p b { color: rgb(0 0 0 / 0.8); font-weight: 600; }
+.l-btn { position: relative; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 8); padding: calc(var(--u) * 20) calc(var(--u) * 12); border-radius: calc(var(--u) * 40); background: var(--brand); color: #fff; font-size: calc(var(--u) * 16); font-weight: 500; line-height: calc(var(--u) * 22); }
+.l-ic { width: calc(var(--u) * 24); aspect-ratio: 1; background: currentColor; mask: url(assets/img/ic-table.svg) center / contain no-repeat; }
+.l-ic--arrow { mask-image: url(assets/img/ic-arrow.svg); }
+.l-pin { display: flex; gap: calc(var(--u) * 10); padding-inline: calc(var(--u) * 8); }
+.l-pin .swap { flex: 1; display: grid; place-items: center; height: calc(var(--u) * 64); border: 1px solid rgb(0 0 0 / 0.1); border-radius: calc(var(--u) * 40); font-size: calc(var(--u) * 20); font-weight: 500; }
+
+/* Step 2 story: start a table, add a nickname, see the PIN, then a friend joins with it. */
+.flow { position: relative; container-type: size; --u: calc(100cqw / 390); --brand: #ff3c00; background: #fff; color: #000; font: 400 calc(var(--u) * 14) / 1.3 var(--sans); }
+.flow > .ui { position: absolute; inset: 0; }
+.flow__menu, .flow__join, .flow__sheet, .flow__cap { opacity: 0; }
+.flow__join { opacity: 1; }
+.flow__sheet {
+  position: absolute; inset: auto 0 0; display: flex; flex-direction: column; gap: calc(var(--u) * 12); padding: calc(var(--u) * 24) calc(var(--u) * 16) calc(var(--u) * 20);
+  border-radius: calc(var(--u) * 40) calc(var(--u) * 40) 0 0; background: #fff; box-shadow: 0 0 0 100cqh rgb(0 0 0 / 0.1);
+}
+.l-welcome { color: rgb(0 0 0 / 0.55); font-size: calc(var(--u) * 16); }
+.l-welcome b { color: rgb(0 0 0 / 0.7); font-weight: 500; }
+.flow__sheet .l-h2 { font-size: calc(var(--u) * 24); text-align: left; }
+.l-input { display: grid; padding: calc(var(--u) * 18) calc(var(--u) * 24); border: 1px solid var(--brand); border-radius: calc(var(--u) * 40); font-size: calc(var(--u) * 16); }
+.l-input .t0 { color: rgb(0 0 0 / 0.4); }
+.flow__sheet .l-btn { margin-top: calc(var(--u) * 64); }
+.flow__cap { position: absolute; z-index: 2; left: 50%; top: calc(var(--u) * 64); translate: -50% 0; padding: calc(var(--u) * 7) calc(var(--u) * 14); border-radius: 99px; background: rgb(0 0 0 / 0.78); color: #fff; font-size: calc(var(--u) * 14); font-weight: 500; white-space: nowrap; }
+
+/* Guest orders (customer-fe "My Order") */
+.ui--orders { display: flex; flex-direction: column; gap: calc(var(--u) * 14); padding: calc(var(--u) * 16) calc(var(--u) * 16) 0; }
+.o-strip { display: flex; align-items: center; gap: calc(var(--u) * 10); padding: calc(var(--u) * 6) calc(var(--u) * 10) calc(var(--u) * 6) calc(var(--u) * 14); border-radius: calc(var(--u) * 10); background: #fff1ea; color: #333; font-size: calc(var(--u) * 13); }
+.o-pin { padding: calc(var(--u) * 3) calc(var(--u) * 10); border: 1px dashed var(--brand); border-radius: 99px; background: #fff; }
+.o-pin b { color: var(--brand); letter-spacing: 0.08em; }
+.o-h { font-size: calc(var(--u) * 20); font-weight: 600; }
+.o-card { display: grid; gap: calc(var(--u) * 10); padding: calc(var(--u) * 14); border: 1px solid var(--line); border-radius: calc(var(--u) * 12); }
+.o-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: calc(var(--u) * 4) !important; }
+.o-top b { font-size: calc(var(--u) * 16); font-weight: 600; }
+.o-top span { padding: calc(var(--u) * 3) calc(var(--u) * 10); border-radius: 99px; background: #ffefe7; color: var(--ink); font-size: calc(var(--u) * 12); font-weight: 500; }
+.o-line { display: flex; justify-content: space-between; color: #444; }
+.o-line:not(.o-sub, .o-total) + .o-sub { padding-top: calc(var(--u) * 10); border-top: 1px solid var(--line); }
+.o-sub { color: var(--muted); }
+.o-total { color: #000; font-size: calc(var(--u) * 16); font-weight: 600; }
+.o-bill { display: grid; place-items: center; height: calc(var(--u) * 52); margin-top: calc(var(--u) * 6); border: 1px solid var(--brand); border-radius: 99px; color: var(--brand); font-size: calc(var(--u) * 16); font-weight: 500; }
 
 /* Staff tables (partner-fe, phone) */
 .ui--staff { display: flex; flex-direction: column; gap: calc(var(--u) * 12); padding: calc(var(--u) * 24) calc(var(--u) * 16) 0; background: #fdfbf9; }
@@ -416,10 +518,30 @@ a { color: inherit; }
 
 /* Stories: each loops while its panel is shown (a hidden panel restarts it). */
 @media (prefers-reduced-motion: no-preference) {
-  .ui--guest .was { animation: was 6s infinite; }
-  .ui--guest .now { animation: now 6s infinite; }
-  .ui--guest .g-add { animation: was 6s infinite, tap 6s infinite; }
-  .ui--guest .g-cart { animation: bump 6s infinite; }
+  #panel-user .phone { animation: zoom 9s infinite ease-in-out; }
+  #panel-user .g-scroll { animation: scroll 9s infinite ease-in-out; }
+  #panel-user .was { animation: was 9s infinite; }
+  #panel-user .now { animation: now 9s infinite; }
+  #panel-user .g-add { animation: was 9s infinite, press 9s infinite; }
+  #panel-user .g-target::after { animation: touch 9s infinite; }
+  #panel-user .g-cart { animation: bump 9s infinite; }
+  .flow.is-on .flow__sheet { animation: f-sheet 8s infinite; }
+  .flow.is-on .t0 { animation: f-t0 8s infinite; }
+  .flow.is-on .t1 { animation: f-t1 8s infinite; }
+  .flow.is-on .t2 { animation: f-t2 8s infinite; }
+  .flow.is-on .t3 { animation: f-t3 8s infinite; }
+  .flow.is-on .l-input .now { animation: f-t4 8s infinite; }
+  .flow.is-on .flow__menu { animation: f-menu 8s infinite; }
+  .flow.is-on .flow__menu .g-pin { animation: f-pin 8s infinite; }
+  .flow.is-on .flow__join { animation: f-join 8s infinite; }
+  .flow.is-on .flow__cap { animation: f-cap 8s infinite; }
+  .flow.is-on .l-pin .swap:nth-child(1) .now { animation: f-d1 8s infinite; }
+  .flow.is-on .l-pin .swap:nth-child(2) .now { animation: f-d2 8s infinite; }
+  .flow.is-on .l-pin .swap:nth-child(3) .now { animation: f-d3 8s infinite; }
+  .flow.is-on .l-pin .swap:nth-child(4) .now { animation: f-d4 8s infinite; }
+  .flow.is-on .flow__start .l-btn::after { animation: f-tap1 8s infinite; }
+  .flow.is-on .flow__sheet .l-btn::after { animation: f-tap2 8s infinite; }
+  .flow.is-on .flow__join .l-btn::after { animation: f-tap3 8s infinite; }
   .s-callwrap { animation: call 7s infinite; }
   .s-b5 { animation: b5 7s infinite; }
   .s-b5 em { animation: b5-badge 7s infinite; }
@@ -438,10 +560,32 @@ a { color: inherit; }
   .ui--admin .was { animation: was-a 6s infinite; }
   .ui--admin .now { animation: now-a 6s infinite; }
 }
-@keyframes was { 0%, 34% { opacity: 1; } 36%, 94% { opacity: 0; } 100% { opacity: 1; } }
-@keyframes now { 0%, 34% { opacity: 0; } 36%, 94% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes tap { 0%, 28% { scale: 1; } 31% { scale: 0.88; } 34%, 100% { scale: 1; } }
-@keyframes bump { 0%, 35% { scale: 1; } 38% { scale: 1.03; } 42%, 100% { scale: 1; } }
+/* User: scroll down the menu and back, zoom in on Butter Chicken's +, tap it, zoom out to the cart. */
+@keyframes scroll { 0%, 6% { translate: 0 calc(var(--u) * -96); } 24%, 30% { translate: 0 calc(var(--u) * -620); } 46%, 100% { translate: 0 calc(var(--u) * -96); } }
+@keyframes zoom { 0%, 50% { scale: 1; } 60%, 74% { scale: 2.3; } 84%, 100% { scale: 1; } }
+@keyframes was { 0%, 65% { opacity: 1; } 66%, 99% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes now { 0%, 65% { opacity: 0; } 66%, 99% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes press { 0%, 63% { scale: 1; } 65% { scale: 0.86; } 67%, 100% { scale: 1; } }
+@keyframes touch { 0%, 61% { opacity: 0; scale: 0.6; } 63% { opacity: 1; scale: 1; } 66% { opacity: 1; scale: 0.85; } 70%, 100% { opacity: 0; scale: 1.25; } }
+@keyframes bump { 0%, 84% { scale: 1; filter: none; } 87% { scale: 1.05; filter: brightness(1.12); } 91%, 100% { scale: 1; filter: none; } }
+/* Step 2: tap Start, type a nickname, tap Start New Table, PIN highlighted, a friend types it and joins. */
+@keyframes f-tap1 { 0%, 10% { opacity: 0; scale: 0.6; } 12% { opacity: 1; scale: 1; } 14% { opacity: 1; scale: 0.85; } 17%, 100% { opacity: 0; scale: 1.25; } }
+@keyframes f-sheet { 0%, 16% { opacity: 0; translate: 0 100%; } 16.5% { opacity: 1; translate: 0 100%; } 22%, 41% { opacity: 1; translate: 0 0; } 44%, 100% { opacity: 0; translate: 0 0; } }
+@keyframes f-t0 { 0%, 24% { opacity: 1; } 24.5%, 100% { opacity: 0; } }
+@keyframes f-t1 { 0%, 24% { opacity: 0; } 24.5%, 27% { opacity: 1; } 27.5%, 100% { opacity: 0; } }
+@keyframes f-t2 { 0%, 27% { opacity: 0; } 27.5%, 30% { opacity: 1; } 30.5%, 100% { opacity: 0; } }
+@keyframes f-t3 { 0%, 30% { opacity: 0; } 30.5%, 33% { opacity: 1; } 33.5%, 100% { opacity: 0; } }
+@keyframes f-t4 { 0%, 33% { opacity: 0; } 33.5%, 100% { opacity: 1; } }
+@keyframes f-tap2 { 0%, 35% { opacity: 0; scale: 0.6; } 37% { opacity: 1; scale: 1; } 39% { opacity: 1; scale: 0.85; } 42%, 100% { opacity: 0; scale: 1.25; } }
+@keyframes f-menu { 0%, 40% { opacity: 0; } 44%, 62% { opacity: 1; } 66%, 100% { opacity: 0; } }
+@keyframes f-pin { 0%, 47% { box-shadow: none; scale: 1; } 50%, 58% { box-shadow: 0 0 0 calc(var(--u) * 3) var(--brand); scale: 1.05; } 61%, 100% { box-shadow: none; scale: 1; } }
+@keyframes f-join { 0%, 61% { opacity: 0; } 65%, 96% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes f-cap { 0%, 64% { opacity: 0; translate: -50% calc(var(--u) * 6); } 67%, 76% { opacity: 1; translate: -50% 0; } 79%, 100% { opacity: 0; translate: -50% 0; } }
+@keyframes f-d1 { 0%, 72% { opacity: 0; } 72.5%, 100% { opacity: 1; } }
+@keyframes f-d2 { 0%, 75% { opacity: 0; } 75.5%, 100% { opacity: 1; } }
+@keyframes f-d3 { 0%, 78% { opacity: 0; } 78.5%, 100% { opacity: 1; } }
+@keyframes f-d4 { 0%, 81% { opacity: 0; } 81.5%, 100% { opacity: 1; } }
+@keyframes f-tap3 { 0%, 85% { opacity: 0; scale: 0.6; } 87% { opacity: 1; scale: 1; } 89% { opacity: 1; scale: 0.85; } 92%, 100% { opacity: 0; scale: 1.25; } }
 @keyframes call { 0%, 18% { grid-template-rows: 0fr; opacity: 0; margin-bottom: calc(var(--u) * -12); } 24%, 68% { grid-template-rows: 1fr; opacity: 1; margin-bottom: 0; } 74%, 100% { grid-template-rows: 0fr; opacity: 0; margin-bottom: calc(var(--u) * -12); } }
 @keyframes b5 {
   0%, 21% { order: 9; }
@@ -549,26 +693,15 @@ a { color: inherit; }
 
 .brand__stage { display: grid; place-items: center; }
 
-/* Brand preview phone: --on-brand and --brand-ink are set by main.js so text stays readable on any colour. */
-.phone { width: 280px; aspect-ratio: 9 / 19; padding: 9px; border-radius: 46px; background: #1b1b1b; box-shadow: inset 0 0 0 2px #8a8a8a, 0 40px 70px -30px rgb(0 0 0 / 0.5); }
-.phone > img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: top; border-radius: 37px; }
+/* Brand preview screen: --on-brand and --brand-ink are set by main.js so text stays readable on any colour. */
 .app {
-  height: 100%; border-radius: 38px; overflow: hidden; background: #fff; color: #222;
-  display: flex; flex-direction: column; gap: 9px; padding: 0 12px; font-size: 10px; line-height: 1.3;
+  aspect-ratio: 390 / 844; padding: calc(var(--w) * 0.125) 12px 0; background: #fff; color: #222;
+  display: flex; flex-direction: column; gap: 9px; font-size: 10px; line-height: 1.3;
 }
-.app__status { display: flex; justify-content: space-between; align-items: center; padding: 12px 10px 0; font-size: 11px; font-weight: 600; }
-.app__island { width: 74px; height: 22px; border-radius: 20px; background: #111; }
-.app__sig { width: 26px; height: 10px; border-radius: 3px; border: 1.5px solid #222; }
-.app__top { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 6px; }
-.app__burger { width: 14px; height: 10px; border-block: 1.5px solid #333; position: relative; }
-.app__burger::after { content: ""; position: absolute; left: 0; right: 0; top: 3px; border-top: 1.5px solid #333; }
+.app__top { display: flex; justify-content: center; align-items: center; min-height: 28px; }
 .app-brand { font-weight: 700; font-size: 14px; text-align: center; color: var(--brand-ink, var(--brand)); transition: color 0.4s; }
-.app-logo { height: 26px; max-width: 110px; object-fit: contain; justify-self: center; }
+.app-logo { height: 26px; max-width: 110px; object-fit: contain; }
 .app-logo:not([hidden]) + .app-brand { display: none; }
-.app__avatars { display: flex; }
-.app__avatars i { display: grid; place-items: center; width: 18px; height: 18px; margin-left: -5px; border-radius: 50%; border: 1.5px solid #fff; font: normal 600 8px var(--sans); color: #fff; background: #ee8e1d; }
-.app__avatars i:first-child { background: var(--brand); color: var(--on-brand, #fff); }
-.app__avatars i:last-child { background: #2f6f5e; }
 .strip { display: flex; justify-content: space-between; padding: 6px 10px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 60%, #fff); font-size: 9px; transition: background 0.4s; }
 .strip b, .strip span:last-child { color: var(--brand-ink, var(--brand)); transition: color 0.4s; }
 .app__search { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #888; }
@@ -615,10 +748,12 @@ a { color: inherit; }
 .cta .eyebrow { color: rgb(255 255 255 / 0.8); }
 .cta h2 { font-size: clamp(2rem, 4.2vw, 3rem); color: rgb(255 255 255 / 0.85); margin-bottom: 16px; text-wrap: balance; }
 .cta .lead { color: rgb(255 255 255 / 0.8); font-size: 1.125rem; margin-bottom: 40px; }
-.cta__phone { display: none; }
+.cta__shot { display: none; }
 @media (min-width: 860px) {
   .cta__band { overflow: visible; margin-top: 110px; }
-  .cta__phone { display: block; position: absolute; right: 7%; bottom: 0; width: 300px; height: 568px; object-fit: cover; object-position: top; }
+  /* The phone rises out of the band and is cut off at its bottom edge. */
+  .cta__shot { display: block; position: absolute; right: 7%; bottom: 0; height: 568px; clip-path: inset(-60px -60px 0 -60px); }
+  .cta__shot .phone { --w: 284px; }
 }
 
 /* Footer: light in both themes, as in the design. */

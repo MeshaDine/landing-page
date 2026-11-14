@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mesha Dine · QR table ordering for restaurants</title>
-  <meta name="description" content="Guests scan the QR code on their table, order together from one shared cart and see the bill on their phone. No app to install.">
+  <title>Mesha Dine · Ordering, kitchen and insights for restaurants</title>
+  <meta name="description" content="One system for your restaurant: guests order together from their phones, staff see every table, the kitchen works from one board, and you see today's sales live. No app to install.">
   <meta name="theme-color" content="#fef9f4">
-  <meta property="og:title" content="Mesha Dine · QR table ordering for restaurants">
-  <meta property="og:description" content="Guests scan, order together from one shared cart and see the bill on their phone. No app to install.">
+  <meta property="og:title" content="Mesha Dine · Ordering, kitchen and insights for restaurants">
+  <meta property="og:description" content="One system for your restaurant: guests order together from their phones, staff see every table, the kitchen works from one board, and you see today's sales live. No app to install.">
   <!-- Runs before first paint so a saved theme never flashes the other one. -->
   <script>
     try {
@@ -58,8 +58,9 @@
     <section class="hero" id="top">
       <div class="wrap">
         <div class="hero__copy">
-          <p class="eyebrow">QR table ordering · No app to install</p>
-          <h1>Let the whole table order together.</h1>
+          <p class="eyebrow">Guests · Staff · Kitchen · Owner</p>
+          <h1>Run your whole restaurant from one place.</h1>
+          <p class="hero__lead">Guests order from their table, staff and kitchen get every order at once, and you see the day’s sales as they happen.</p>
           <div class="ctas">
             <a class="btn" href="#contact" data-cta="whatsapp">Book a demo<span class="btn__chev" aria-hidden="true"></span></a>
             <a class="btn btn--ghost" href="#contact" data-cta="email">Contact us</a>
@@ -68,17 +69,17 @@
 
         <div class="hero__stage" aria-hidden="true">
           <div class="band"><img src="assets/img/hero-band.webp" alt="" width="736" height="1308"></div>
-          <img class="hero__phone" src="assets/img/phone.webp" alt="" width="702" height="1435" fetchpriority="high">
+          <div class="phone hero__phone"><span class="sb"><i></i></span><div class="ui ui--guest" data-tpl="guest"></div></div>
           <div class="mini mini--order parallax" style="--shift: -60px">
-            <img src="assets/img/order-dish.webp" alt="" width="300" height="200">
-            <b>Andrew Bartell</b>
-            <dl><dt>Table ID:</dt><dd>A14</dd><dt>Items:</dt><dd>04</dd></dl>
-            <div class="mini__foot"><span class="status">Pending</span><strong>₹742.43</strong></div>
+            <img src="assets/img/food-biryani.webp" alt="" width="320" height="320">
+            <b>Malabar Chicken Biryani</b>
+            <dl><dt>Table</dt><dd>A5</dd><dt>Items</dt><dd>03</dd></dl>
+            <div class="mini__foot"><span class="status">Preparing</span><strong>₹955.50</strong></div>
           </div>
           <div class="mini mini--stat parallax" style="--shift: -110px">
             <span class="mini__head"><img src="assets/img/ic-orders.svg" alt="" width="20" height="20">Orders</span>
             <strong>86</strong>
-            <span class="mini__trend"><img src="assets/img/ic-trend.svg" alt="" width="20" height="20"><em>+10%</em> since yesterday</span>
+            <span class="mini__trend"><img src="assets/img/ic-trend.svg" alt="" width="20" height="20"><em>+12%</em> since yesterday</span>
           </div>
         </div>
       </div>
@@ -91,7 +92,7 @@
         <div class="how__track">
           <div class="how__grid">
             <div class="steps">
-              <details name="how" open data-screens="scan">
+              <details name="how" open data-screen="scan">
                 <summary><span class="step__n">01</span><span class="step__t">Scan the table’s QR code</span></summary>
                 <ul>
                   <li>Every table gets its own code.</li>
@@ -99,7 +100,7 @@
                   <li>Nothing to download.</li>
                 </ul>
               </details>
-              <details name="how" data-screens="start join">
+              <details name="how" data-screen="pin">
                 <summary><span class="step__n">02</span><span class="step__t">Start a table, or join with a PIN</span></summary>
                 <ul>
                   <li>The first guest types a nickname and starts the table.</li>
@@ -107,7 +108,7 @@
                   <li>Everyone else at the table joins with it.</li>
                 </ul>
               </details>
-              <details name="how" data-screens="menu">
+              <details name="how" data-screen="menu">
                 <summary><span class="step__n">03</span><span class="step__t">Fill one shared cart</span></summary>
                 <ul>
                   <li>Everyone adds dishes to the same cart from their own phone.</li>
@@ -115,7 +116,7 @@
                   <li>The host places the order for the table.</li>
                 </ul>
               </details>
-              <details name="how" data-screens="orders">
+              <details name="how" data-screen="orders">
                 <summary><span class="step__n">04</span><span class="step__t">Orders and the bill, live</span></summary>
                 <ul>
                   <li>Order more rounds any time.</li>
@@ -126,6 +127,7 @@
             </div>
             <div class="how__shot" aria-hidden="true">
               <div class="phone how__phone">
+                <span class="sb"><i></i></span>
                 <div class="how__scr scan is-on" data-screen="scan">
                   <div class="scan__cam">
                     <div class="scan__stand"><b>Scan to order</b><img src="assets/img/qr.svg" alt="" width="25" height="25"><span>Table 1</span></div>
@@ -133,12 +135,45 @@
                     <span class="scan__link">Open in browser</span>
                   </div>
                   <div class="scan__load"><i></i></div>
-                  <img class="scan__start" src="assets/img/step-1.webp" alt="" width="600" height="1299" loading="lazy">
+                  <div class="ui ui--land scan__start" data-tpl="start"></div>
                 </div>
-                <img class="how__scr" data-screen="start" src="assets/img/step-1.webp" alt="" width="600" height="1299" loading="lazy">
-                <img class="how__scr" data-screen="join" src="assets/img/step-2.webp" alt="" width="600" height="1299" loading="lazy">
-                <img class="how__scr" data-screen="menu" src="assets/img/step-3.webp" alt="" width="600" height="1299" loading="lazy">
-                <img class="how__scr" data-screen="orders" src="assets/img/step-4.webp" alt="" width="600" height="1299" loading="lazy">
+                <div class="how__scr flow" data-screen="pin">
+                  <div class="ui ui--land flow__start" data-tpl="start"></div>
+                  <div class="flow__sheet">
+                    <p class="l-welcome">welcome to <b>Mesha Dine</b></p>
+                    <p class="l-h2">Please add a nickname</p>
+                    <span class="l-input swap"><span class="t0">e.g. John</span><span class="t1">R</span><span class="t2">Ri</span><span class="t3">Riy</span><span class="now">Riya</span></span>
+                    <span class="l-btn">Start New Table<i class="l-ic l-ic--arrow"></i></span>
+                  </div>
+                  <div class="ui ui--guest flow__menu" data-tpl="guest"></div>
+                  <div class="ui ui--land flow__join">
+                    <div class="l-hero l-hero--short"><span class="l-logo"><img src="assets/img/logo.svg" alt="" width="113" height="26"></span></div>
+                    <img class="l-art" src="assets/img/welcome.svg" alt="" width="200" height="200">
+                    <p class="l-h">Join Riya's table?</p>
+                    <p class="l-p">Table “<b>1</b>” is currently occupied. To join this session, please enter the PIN shown on the host's phone.</p>
+                    <div class="l-pin"><span class="swap"><span class="p0"></span><span class="now">8</span></span><span class="swap"><span class="p0"></span><span class="now">6</span></span><span class="swap"><span class="p0"></span><span class="now">7</span></span><span class="swap"><span class="p0"></span><span class="now">5</span></span></div>
+                    <span class="l-btn">Join Session</span>
+                  </div>
+                  <span class="flow__cap">A friend joins</span>
+                </div>
+                <div class="how__scr ui ui--guest" data-screen="menu" data-tpl="guest"></div>
+                <div class="how__scr ui ui--orders" data-screen="orders">
+                  <img class="g-logo" src="assets/img/logo.svg" alt="" width="113" height="26">
+                  <div class="o-strip"><span>Table no: <b>1</b></span><span class="o-pin">PIN <b>8675</b></span><i class="g-toggle"></i></div>
+                  <p class="o-h">Your orders</p>
+                  <div class="o-card">
+                    <p class="o-top"><b>Order at 7:38 pm</b><span>Sent to kitchen</span></p>
+                    <p class="o-line"><span>1 × Butter Chicken</span><span>₹290.00</span></p>
+                    <p class="o-line"><span>1 × Malabar Chicken Biryani</span><span>₹320.00</span></p>
+                    <p class="o-line"><span>1 × Paneer Tikka</span><span>₹240.00</span></p>
+                    <p class="o-line"><span>1 × Kerala Meals</span><span>₹220.00</span></p>
+                    <p class="o-line o-sub"><span>Subtotal</span><span>₹1,070.00</span></p>
+                    <p class="o-line o-sub"><span>GST (5%)</span><span>₹53.50</span></p>
+                    <p class="o-line o-total"><span>Total</span><span>₹1,123.50</span></p>
+                  </div>
+                  <span class="o-bill">View bill</span>
+                  <div class="g-nav"><span>Home</span><span class="is-on">My Order</span><span>Waiter</span></div>
+                </div>
               </div>
             </div>
           </div>
@@ -149,23 +184,37 @@
     <!-- 3. Better experience -->
     <section class="exp" id="why">
       <div class="wrap">
-        <h2 class="sec-title reveal">A better dining experience from every side</h2>
+        <h2 class="sec-title reveal">One system for every side of your restaurant</h2>
         <div class="exp__grid">
           <article class="card card--featured reveal">
-            <img src="assets/img/exp-orders.webp" alt="" width="1176" height="740" loading="lazy">
+            <div class="shot shot--guest" aria-hidden="true">
+              <div class="ui ui--guest" data-tpl="guest"></div>
+              <div class="ui shot__pop">
+                <div class="g-dish"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Butter Chicken</b><span class="g-row">₹290.00<span class="g-step">−<span>01</span>+</span></span></div>
+              </div>
+            </div>
             <h3>Every order, right on time</h3>
             <p>Keep guests informed as their orders move from placement to preparation and serving. Give everyone a clearer view of what’s happening at their table.</p>
           </article>
           <article class="card reveal">
-            <img src="assets/img/exp-sync.webp" alt="" width="1176" height="740" loading="lazy">
-            <h3>Your team, always in sync</h3>
-            <p>Bring table orders, guest activity, and service updates into one connected workflow. Help your staff spend less time managing orders and more time looking after guests.</p>
+            <div class="shot shot--admin" aria-hidden="true">
+              <div class="ui ui--admin" data-tpl="admin"></div>
+              <div class="ui shot__pop">
+                <div class="a-card a-live">
+                  <p class="a-h2">Live Operations <span class="a-tag">Live</span></p>
+                  <div class="a-stats"><p><b>12</b><small>/20</small><span>Tables occupied</span></p><p><b>7</b><span>Orders waiting</span></p></div>
+                  <p class="a-oldest"><span><span>Oldest order waiting</span><b>24 min</b></span><span class="a-btn">View Orders →</span></p>
+                </div>
+              </div>
+            </div>
+            <h3>See your restaurant at a glance</h3>
+            <p>Today’s orders, sales, average spend and cancellations against yesterday, plus live tables, waiting orders and top sellers.</p>
           </article>
           <article class="card card--photo reveal">
             <img src="assets/img/diners.webp" alt="" width="2480" height="1654" loading="lazy">
             <div>
-              <h3>Make every service count</h3>
-              <p>Understand what’s selling, track order activity, and see how your restaurant performs throughout the day. Turn everyday ordering data into clearer decisions for your business.</p>
+              <h3>Your team, always in sync</h3>
+              <p>Staff see every table and waiter call, the kitchen works from one board, and a dish that runs out is switched off for everyone at once.</p>
             </div>
           </article>
         </div>
@@ -175,7 +224,7 @@
     <!-- 4. Use cases -->
     <section class="use" id="use-cases">
       <div class="wrap">
-        <h2 class="sec-title reveal">Designed for every use case</h2>
+        <h2 class="sec-title reveal">Built for everyone in your restaurant</h2>
         <div class="tabs" role="tablist" aria-label="Who uses Mesha Dine">
           <button type="button" role="tab" id="tab-user" aria-controls="panel-user" aria-selected="true" style="--icon: url(assets/img/ic-user.svg)">User mode</button>
           <button type="button" role="tab" id="tab-staff" aria-controls="panel-staff" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-staff.svg)">Staff mode</button>
@@ -184,28 +233,13 @@
         </div>
         <div class="use__stage">
           <div class="use__panel" role="tabpanel" id="panel-user" aria-labelledby="tab-user">
-            <div class="dev dev--phone" role="img" aria-label="The guest menu on a phone: the table PIN, dish photos, and a shared cart that goes from 3 to 4 items when Butter Chicken is added">
-              <div class="ui ui--guest">
-                <img class="g-logo" src="assets/img/logo.svg" alt="" width="113" height="26">
-                <div class="g-pin"><span>Table PIN code:</span><b>8675</b><i class="g-toggle"></i></div>
-                <div class="g-search"><span>Search dishes...</span><i></i></div>
-                <p class="g-hi">Good evening, <b>Riya</b></p>
-                <div class="g-chips"><span><i class="mark mark--veg"></i>Veg only</span><span><i class="mark mark--non"></i>Non-Veg</span><span>Best Sellers</span></div>
-                <p class="g-sec">Our Specials</p>
-                <div class="g-dishes">
-                  <div class="g-dish"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Malabar Chicken Biryani</b><span class="g-row">₹320.00<span class="g-step">−<span>01</span>+</span></span></div>
-                  <div class="g-dish"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Butter Chicken</b><span class="g-row">₹290.00<span class="swap"><span class="g-add was">+</span><span class="g-step now">−<span>01</span>+</span></span></span></div>
-                  <div class="g-dish"><img src="assets/img/food-paneer.webp" alt="" width="320" height="320"></div>
-                  <div class="g-dish"><img src="assets/img/food-kebab.webp" alt="" width="320" height="320"></div>
-                </div>
-                <span class="g-menu">Menu</span>
-                <div class="g-cart"><b class="swap"><span class="was">3 items · ₹780.00</span><span class="now">4 items · ₹1,070.00</span></b><span>View table cart →</span></div>
-                <div class="g-nav"><span class="is-on">Home</span><span>My Order</span><span>Waiter</span></div>
-              </div>
+            <div class="phone" role="img" aria-label="The guest menu on a phone: the guest scrolls the menu, taps the plus under Butter Chicken, and the shared cart goes from 3 to 4 items">
+              <span class="sb"><i></i></span><div class="ui ui--guest" data-tpl="guest"></div>
             </div>
           </div>
           <div class="use__panel" role="tabpanel" id="panel-staff" aria-labelledby="tab-staff" hidden>
-            <div class="dev dev--phone" role="img" aria-label="The staff app on a phone: Table B5 calls a waiter, moves to the top of the tables list, and the waiter taps Done">
+            <div class="phone" role="img" aria-label="The staff app on a phone: Table B5 calls a waiter, moves to the top of the tables list, and the waiter taps Done">
+              <span class="sb"><i></i></span>
               <div class="ui ui--staff">
                 <p class="s-h">Tables</p>
                 <p class="s-sub">12 occupied · 8 free</p>
@@ -248,54 +282,7 @@
           </div>
           <div class="use__panel" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
             <div class="dev dev--tablet" role="img" aria-label="The owner dashboard on a tablet: today's orders, net sales, average spend and cancellations; live tables occupied and orders waiting update as a new Table A3 order comes in">
-              <div class="ui ui--admin">
-                <div class="a-side">
-                  <img src="assets/img/logo.svg" alt="" width="113" height="26">
-                  <span class="is-on">▦ Dashboard</span><span>☰ Orders</span><span>◫ Menu</span>
-                  <p class="a-user"><i>AT</i><span><b>Anjali Thomas</b>Manager</span></p>
-                </div>
-                <div class="a-main">
-                  <p class="a-crumb">Dashboard</p>
-                  <p class="a-h">Overview</p>
-                  <div class="a-grid">
-                    <div class="a-left">
-                      <div class="a-kpis">
-                        <p class="a-card"><span>Orders</span><b>86</b><small><em class="up">+12%</em> since yesterday</small></p>
-                        <p class="a-card"><span>Net Sales</span><b>₹48,260.00</b><small><em class="up">+8%</em> since yesterday</small></p>
-                        <p class="a-card"><span>Avg. Spent</span><b>₹561.16</b><small><em class="down">-4%</em> since yesterday</small></p>
-                        <p class="a-card"><span>Cancellations</span><b>2</b><small><em class="up">-50%</em> since yesterday</small></p>
-                      </div>
-                      <div class="a-card a-live">
-                        <p class="a-h2">Live Operations <span class="a-tag">Live</span></p>
-                        <div class="a-stats">
-                          <p><b class="swap"><span class="was">11</span><span class="now">12</span></b><small>/20</small><span>Tables occupied</span></p>
-                          <p><b class="swap"><span class="was">6</span><span class="now">7</span></b><span>Orders waiting</span></p>
-                        </div>
-                        <p class="a-oldest"><span><span>Oldest order waiting</span><b>24 min</b></span><span class="a-btn">View Orders →</span></p>
-                      </div>
-                      <div class="a-card">
-                        <p class="a-h2">Recent Orders</p>
-                        <p class="a-muted">Latest orders placed today</p>
-                        <div class="a-recent"><div class="a-track">
-                          <p class="a-order"><img src="assets/img/food-combo.webp" alt="" width="320" height="320"><b>Paneer Butter Masala + Rice Combo</b><span>Table <em>A3</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹682.50</strong></span></p>
-                          <p class="a-order"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><b>Malabar Chicken Biryani</b><span>Table <em>A5</em></span><span>Items <em>03</em></span><span class="a-row"><span class="pill pill--info">Preparing</span><strong>₹955.50</strong></span></p>
-                          <p class="a-order"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><b>Chilli Chicken</b><span>Table <em>A6</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹640.50</strong></span></p>
-                          <p class="a-order"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><b>Kerala Meals</b><span>Table <em>A2</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹483.00</strong></span></p>
-                        </div></div>
-                      </div>
-                    </div>
-                    <div class="a-card a-items">
-                      <p class="a-h2">Items Overview</p>
-                      <div class="a-itemstats"><p><span>Total Items</span><b>17</b></p><p><span>Out</span><b>0</b></p></div>
-                      <p class="a-h3">Top sellers</p>
-                      <p class="a-seller"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span>Malabar Chicken Biryani</span><b>24</b></p>
-                      <p class="a-seller"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span>Butter Chicken</span><b>19</b></p>
-                      <p class="a-seller"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><span>Chilli Chicken</span><b>14</b></p>
-                      <p class="a-seller"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><span>Kerala Meals</span><b>12</b></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="ui ui--admin" data-tpl="admin"></div>
             </div>
           </div>
         </div>
@@ -381,15 +368,13 @@
 
           <div class="brand__stage" aria-hidden="true">
             <div class="phone">
+              <span class="sb"><i></i></span>
               <div class="app">
-                <div class="app__status"><span>9:41</span><span class="app__island"></span><span class="app__sig"></span></div>
                 <div class="app__top">
-                  <span class="app__burger"></span>
                   <img class="app-logo" data-brand-logo alt="" hidden>
                   <span class="app-brand" data-brand-name>Spice Route</span>
-                  <span class="app__avatars"><i>R</i><i>A</i><i>S</i></span>
                 </div>
-                <div class="strip"><span>Table PIN code: <b>1827</b></span><span>View members ›</span></div>
+                <div class="strip"><span>Table PIN code: <b>8675</b></span></div>
                 <div class="app__search"><span>Search…</span><span class="app__filter"></span></div>
                 <p class="greet">Good evening, <b>Riya</b></p>
                 <div class="chips"><span class="chip">Veg only</span><span class="chip">Non-veg</span><span class="chip chip--on">Best sellers</span></div>
@@ -431,6 +416,14 @@
           <p>Yes. The menu shows your restaurant’s name and colours, and every table gets its own QR code.</p>
         </details>
         <details>
+          <summary>What does the owner see?</summary>
+          <p>A live dashboard with today’s orders, net sales, average spend and cancellations against yesterday, tables occupied, orders waiting and top sellers. Past orders can be filtered by date, status, table and staff.</p>
+        </details>
+        <details>
+          <summary>What do staff and the kitchen use?</summary>
+          <p>Staff get tables, waiter calls and orders on their phone and can place an order for a table. The kitchen gets every order on a tablet, with wait times and dish totals. Both can mark a dish sold out.</p>
+        </details>
+        <details>
           <summary>How do I get started?</summary>
           <p>Message us on WhatsApp or email. We’ll show you a live demo and talk through what your restaurant needs.</p>
         </details>
@@ -442,15 +435,15 @@
       <div class="wrap">
         <div class="cta__band reveal">
           <div class="cta__copy">
-            <p class="eyebrow">QR table ordering</p>
-            <h2>Ready to let your tables order?</h2>
-            <p class="lead">See Mesha Dine running on your own phone in a quick demo.</p>
+            <p class="eyebrow">Guests · Staff · Kitchen · Owner</p>
+            <h2>Ready to run your restaurant on Mesha?</h2>
+            <p class="lead">See the guest menu, kitchen board and owner dashboard in a quick demo.</p>
             <div class="ctas">
               <a class="btn" href="#contact" data-cta="whatsapp">Chat on WhatsApp<span class="btn__chev" aria-hidden="true"></span></a>
               <a class="btn btn--ghost-light" href="#contact" data-cta="email">Email us</a>
             </div>
           </div>
-          <img class="cta__phone" src="assets/img/phone.webp" alt="" width="702" height="1435" loading="lazy">
+          <div class="cta__shot" aria-hidden="true"><div class="phone"><span class="sb"><i></i></span><div class="ui ui--guest" data-tpl="guest"></div></div></div>
         </div>
       </div>
     </section>
@@ -460,7 +453,7 @@
     <div class="wrap">
       <div class="foot__top">
         <a class="logo" href="#top" aria-label="Mesha Dine home"><img src="assets/img/logo.svg" alt="" width="113" height="26"></a>
-        <p>Let the whole table order together.</p>
+        <p>Run your whole restaurant from one place.</p>
       </div>
       <div class="foot__cols">
         <nav aria-label="Footer">
@@ -475,8 +468,89 @@
           <a href="#contact" data-cta="whatsapp">WhatsApp</a>
         </div>
       </div>
-      <p class="foot__copy">© <span data-year>2026</span> Mesha Dine. QR table ordering for restaurants in India.</p>
+      <p class="foot__copy">© <span data-year>2026</span> Mesha Dine. Ordering, kitchen and insights for restaurants in India.</p>
     </div>
   </footer>
+  <!-- Screens used in more than one place; main.js copies each into its [data-tpl] slots. -->
+  <template id="tpl-guest">
+    <div class="g-scroll">
+      <img class="g-logo" src="assets/img/logo.svg" alt="" width="113" height="26">
+      <div class="g-pin"><span>Table PIN code:</span><b>8675</b><i class="g-toggle"></i></div>
+      <div class="g-search"><span>Search dishes...</span><i></i></div>
+      <p class="g-hi">Good evening, <b>Riya</b></p>
+      <div class="g-chips"><span><i class="mark mark--veg"></i>Veg only</span><span><i class="mark mark--non"></i>Non-Veg</span><span>Best Sellers</span></div>
+      <p class="g-sec">Our Specials</p>
+      <div class="g-dishes">
+      <div class="g-dish"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Malabar Chicken Biryani</b><span class="g-row">₹320.00<span class="g-ctl"><span class="g-step">−<span>01</span>+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Butter Chicken</b><span class="g-row">₹290.00<span class="g-ctl"><span class="swap g-target"><span class="g-add was">+</span><span class="g-step now">−<span>01</span>+</span></span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-paneer.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--veg"></i></span><b>Paneer Tikka</b><span class="g-row">₹240.00<span class="g-ctl"><span class="g-step">−<span>01</span>+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-kebab.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i></span><b>Chicken Seekh Kebab</b><span class="g-row">₹280.00<span class="g-ctl"><span class="g-add">+</span></span></span></div>
+      </div>
+      <p class="g-sec">Best Combos</p>
+      <div class="g-dishes">
+      <div class="g-dish"><img src="assets/img/food-curry.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Chicken Curry + Butter Naan Combo</b><span class="g-row">₹350.00<span class="g-ctl"><span class="g-add">+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-combo.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--veg"></i></span><b>Paneer Butter Masala + Rice Combo</b><span class="g-row">₹300.00<span class="g-ctl"><span class="g-add">+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--veg"></i>Best seller</span><b>Kerala Meals</b><span class="g-row">₹220.00<span class="g-ctl"><span class="g-step">−<span>01</span>+</span></span></span></div>
+      </div>
+    </div>
+    <span class="g-menu">Menu</span>
+    <div class="g-cart"><b class="swap"><span class="was">3 items · ₹780.00</span><span class="now">4 items · ₹1,070.00</span></b><span>View table cart →</span></div>
+    <div class="g-nav"><span class="is-on">Home</span><span>My Order</span><span>Waiter</span></div>
+  </template>
+  <template id="tpl-start">
+    <div class="l-hero"><span class="l-logo"><img src="assets/img/logo.svg" alt="" width="113" height="26"></span></div>
+    <img class="l-art" src="assets/img/welcome.svg" alt="" width="200" height="200">
+    <p class="l-h">Start a New Dining Session?</p>
+    <p class="l-p">Table “<b>1</b>” is empty, would you like to start a new session in this table?</p>
+    <span class="l-btn l-start"><i class="l-ic"></i>Start a New Table</span>
+  </template>
+  <template id="tpl-admin">
+    <div class="a-side">
+      <img src="assets/img/logo.svg" alt="" width="113" height="26">
+      <span class="is-on">▦ Dashboard</span><span>☰ Orders</span><span>◫ Menu</span>
+      <p class="a-user"><i>AT</i><span><b>Anjali Thomas</b>Manager</span></p>
+    </div>
+    <div class="a-main">
+      <p class="a-crumb">Dashboard</p>
+      <p class="a-h">Overview</p>
+      <div class="a-grid">
+        <div class="a-left">
+          <div class="a-kpis">
+            <p class="a-card"><span>Orders</span><b>86</b><small><em class="up">+12%</em> since yesterday</small></p>
+            <p class="a-card"><span>Net Sales</span><b>₹48,260.00</b><small><em class="up">+8%</em> since yesterday</small></p>
+            <p class="a-card"><span>Avg. Spent</span><b>₹561.16</b><small><em class="down">-4%</em> since yesterday</small></p>
+            <p class="a-card"><span>Cancellations</span><b>2</b><small><em class="up">-50%</em> since yesterday</small></p>
+          </div>
+          <div class="a-card a-live">
+            <p class="a-h2">Live Operations <span class="a-tag">Live</span></p>
+            <div class="a-stats">
+              <p><b class="swap"><span class="was">11</span><span class="now">12</span></b><small>/20</small><span>Tables occupied</span></p>
+              <p><b class="swap"><span class="was">6</span><span class="now">7</span></b><span>Orders waiting</span></p>
+            </div>
+            <p class="a-oldest"><span><span>Oldest order waiting</span><b>24 min</b></span><span class="a-btn">View Orders →</span></p>
+          </div>
+          <div class="a-card">
+            <p class="a-h2">Recent Orders</p>
+            <p class="a-muted">Latest orders placed today</p>
+            <div class="a-recent"><div class="a-track">
+              <p class="a-order"><img src="assets/img/food-combo.webp" alt="" width="320" height="320"><b>Paneer Butter Masala + Rice Combo</b><span>Table <em>A3</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹682.50</strong></span></p>
+              <p class="a-order"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><b>Malabar Chicken Biryani</b><span>Table <em>A5</em></span><span>Items <em>03</em></span><span class="a-row"><span class="pill pill--info">Preparing</span><strong>₹955.50</strong></span></p>
+              <p class="a-order"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><b>Chilli Chicken</b><span>Table <em>A6</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹640.50</strong></span></p>
+              <p class="a-order"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><b>Kerala Meals</b><span>Table <em>A2</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹483.00</strong></span></p>
+            </div></div>
+          </div>
+        </div>
+        <div class="a-card a-items">
+          <p class="a-h2">Items Overview</p>
+          <div class="a-itemstats"><p><span>Total Items</span><b>17</b></p><p><span>Out</span><b>0</b></p></div>
+          <p class="a-h3">Top sellers</p>
+          <p class="a-seller"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span>Malabar Chicken Biryani</span><b>24</b></p>
+          <p class="a-seller"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span>Butter Chicken</span><b>19</b></p>
+          <p class="a-seller"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><span>Chilli Chicken</span><b>14</b></p>
+          <p class="a-seller"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><span>Kerala Meals</span><b>12</b></p>
+        </div>
+      </div>
+    </div>
+  </template>
 </body>
 </html>

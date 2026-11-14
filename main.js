@@ -1,3 +1,5 @@
+document.querySelectorAll("[data-tpl]").forEach((slot) => slot.append(document.getElementById(`tpl-${slot.dataset.tpl}`).content.cloneNode(true)));
+
 // Demo contact details. TODO: replace both placeholders before going live.
 const CONTACT = {
   whatsapp: "91XXXXXXXXXX", // international format, digits only
@@ -55,8 +57,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // How it works: the open step picks the phone screen. While the grid is pinned (sticky),
-// scroll progress through the track picks the open step and, within a step, which of its
-// screens shows (data-screens); a click scrolls to its step. Unpinned, a step shows its first screen.
+// scroll progress through the track picks the open step; a click scrolls to its step.
 const howScreens = [...document.querySelectorAll(".how__scr")];
 const howTrack = document.querySelector(".how__track");
 const howGrid = howTrack.querySelector(".how__grid");
@@ -69,15 +70,10 @@ const syncHowStep = () => {
   const progress = (howGrid.getBoundingClientRect().top - howTrack.getBoundingClientRect().top) / howRange();
   const at = Math.max(0, progress * howSteps.length);
   const i = Math.min(howSteps.length - 1, Math.floor(at));
-  const step = howSteps[i];
-  if (!step.open) step.open = true;
-  const screens = step.dataset.screens.split(" ");
-  showScreen(screens[Math.min(screens.length - 1, Math.floor((at - i) * screens.length))]);
+  if (!howSteps[i].open) howSteps[i].open = true;
 };
 howSteps.forEach((step, i) => {
-  step.addEventListener("toggle", () => {
-    if (step.open) howPinned() ? syncHowStep() : showScreen(step.dataset.screens.split(" ")[0]);
-  });
+  step.addEventListener("toggle", () => step.open && showScreen(step.dataset.screen));
   step.querySelector("summary").addEventListener("click", (e) => {
     if (!howPinned()) return;
     e.preventDefault();
