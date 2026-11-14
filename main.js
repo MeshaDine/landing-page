@@ -54,11 +54,34 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && navLinks.classList.contains("is-open")) { setMenu(false); menuBtn.focus(); }
 });
 
-// How it works: the open step picks the phone screen.
+// How it works: the open step picks the phone screen. While the grid is pinned (sticky),
+// scroll progress through the track picks the open step, and a click scrolls to its step.
 const howPhone = document.querySelector(".how__phone");
-document.querySelectorAll(".steps details").forEach((step) => {
+const howTrack = document.querySelector(".how__track");
+const howGrid = howTrack.querySelector(".how__grid");
+const howSteps = [...howTrack.querySelectorAll("details")];
+const howPinned = () => getComputedStyle(howGrid).position === "sticky";
+const howRange = () => howTrack.offsetHeight - howGrid.offsetHeight;
+const syncHowStep = () => {
+  if (!howPinned()) return;
+  const progress = (howGrid.getBoundingClientRect().top - howTrack.getBoundingClientRect().top) / howRange();
+  const step = howSteps[Math.min(howSteps.length - 1, Math.floor(progress * howSteps.length))];
+  if (!step.open) step.open = true;
+};
+howSteps.forEach((step, i) => {
+  new Image().src = step.dataset.shot;
   step.addEventListener("toggle", () => { if (step.open) howPhone.src = step.dataset.shot; });
+  step.querySelector("summary").addEventListener("click", (e) => {
+    if (!howPinned()) return;
+    e.preventDefault();
+    const stickyTop = parseFloat(getComputedStyle(howGrid).top);
+    const into = (howRange() * (i + 0.5)) / howSteps.length;
+    const top = scrollY + howTrack.getBoundingClientRect().top - stickyTop + into;
+    scrollTo({ top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
 });
+addEventListener("scroll", syncHowStep, { passive: true });
+syncHowStep();
 
 // Use cases: ARIA tabs with arrow-key navigation.
 const tabs = [...document.querySelectorAll('[role="tab"]')];
