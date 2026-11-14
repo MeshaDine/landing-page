@@ -128,11 +128,11 @@
               <div class="phone how__phone">
                 <div class="how__scr scan is-on" data-screen="scan">
                   <div class="scan__cam">
-                    <div class="scan__stand"><b>Scan to order</b><img src="assets/img/qr.svg" alt="" width="25" height="25"><span>Table 3</span></div>
+                    <div class="scan__stand"><b>Scan to order</b><img src="assets/img/qr.svg" alt="" width="25" height="25"><span>Table 1</span></div>
                     <i class="scan__frame"></i><i class="scan__line"></i><i class="scan__ok"></i>
-                    <span class="scan__link">Kerala Spice House · Open menu</span>
+                    <span class="scan__link">Open in browser</span>
                   </div>
-                  <div class="scan__load"><b>Kerala Spice House</b><i></i></div>
+                  <div class="scan__load"><i></i></div>
                   <img class="scan__start" src="assets/img/step-1.webp" alt="" width="600" height="1299" loading="lazy">
                 </div>
                 <img class="how__scr" data-screen="start" src="assets/img/step-1.webp" alt="" width="600" height="1299" loading="lazy">
@@ -183,17 +183,120 @@
           <button type="button" role="tab" id="tab-admin" aria-controls="panel-admin" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-admin.svg)">Admin dashboard</button>
         </div>
         <div class="use__stage">
-          <div class="use__panel use__panel--user" role="tabpanel" id="panel-user" aria-labelledby="tab-user">
-            <img src="assets/img/phone.webp" alt="The guest menu on a phone, with the table PIN, dishes and a shared cart" width="702" height="1435" loading="lazy">
+          <div class="use__panel" role="tabpanel" id="panel-user" aria-labelledby="tab-user">
+            <div class="dev dev--phone" role="img" aria-label="The guest menu on a phone: the table PIN, dish photos, and a shared cart that goes from 3 to 4 items when Butter Chicken is added">
+              <div class="ui ui--guest">
+                <img class="g-logo" src="assets/img/logo.svg" alt="" width="113" height="26">
+                <div class="g-pin"><span>Table PIN code:</span><b>8675</b><i class="g-toggle"></i></div>
+                <div class="g-search"><span>Search dishes...</span><i></i></div>
+                <p class="g-hi">Good evening, <b>Riya</b></p>
+                <div class="g-chips"><span><i class="mark mark--veg"></i>Veg only</span><span><i class="mark mark--non"></i>Non-Veg</span><span>Best Sellers</span></div>
+                <p class="g-sec">Our Specials</p>
+                <div class="g-dishes">
+                  <div class="g-dish"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Malabar Chicken Biryani</b><span class="g-row">₹320.00<span class="g-step">−<span>01</span>+</span></span></div>
+                  <div class="g-dish"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Butter Chicken</b><span class="g-row">₹290.00<span class="swap"><span class="g-add was">+</span><span class="g-step now">−<span>01</span>+</span></span></span></div>
+                  <div class="g-dish"><img src="assets/img/food-paneer.webp" alt="" width="320" height="320"></div>
+                  <div class="g-dish"><img src="assets/img/food-kebab.webp" alt="" width="320" height="320"></div>
+                </div>
+                <span class="g-menu">Menu</span>
+                <div class="g-cart"><b class="swap"><span class="was">3 items · ₹780.00</span><span class="now">4 items · ₹1,070.00</span></b><span>View table cart →</span></div>
+                <div class="g-nav"><span class="is-on">Home</span><span>My Order</span><span>Waiter</span></div>
+              </div>
+            </div>
           </div>
-          <div class="use__panel use__panel--staff" role="tabpanel" id="panel-staff" aria-labelledby="tab-staff" hidden>
-            <div class="phone"><img src="assets/img/use-staff.webp" alt="The staff app on a phone: every table with its guests and time seated, and a table calling for a waiter" width="600" height="1299" loading="lazy"></div>
+          <div class="use__panel" role="tabpanel" id="panel-staff" aria-labelledby="tab-staff" hidden>
+            <div class="dev dev--phone" role="img" aria-label="The staff app on a phone: Table B5 calls a waiter, moves to the top of the tables list, and the waiter taps Done">
+              <div class="ui ui--staff">
+                <p class="s-h">Tables</p>
+                <p class="s-sub">12 occupied · 8 free</p>
+                <div class="s-chips"><span class="is-on">All</span><span>Occupied</span><span>Free</span></div>
+                <div class="s-callwrap"><div class="s-call"><span><b>Table B5</b><em>Calling · Ready to order · 0 min</em></span><span class="s-done">Done</span></div></div>
+                <div class="s-grid">
+                  <span class="s-t is-busy"><b>A1</b>Occupied<small>2 guests · 1 h 5 min</small></span>
+                  <span class="s-t is-busy"><b>A2</b>Occupied<small>4 guests · 48 min</small></span>
+                  <span class="s-t is-busy"><b>A3</b>Occupied<small>3 guests · 2 min</small></span>
+                  <span class="s-t"><b>A4</b>Free</span>
+                  <span class="s-t is-busy"><b>A5</b>Occupied<small>2 guests · 35 min</small></span>
+                  <span class="s-t is-busy"><b>A6</b>Occupied<small>5 guests · 18 min</small></span>
+                  <span class="s-t"><b>A7</b>Free</span>
+                  <span class="s-t is-busy"><b>B1</b>Occupied<small>2 guests · 12 min</small></span>
+                  <span class="s-t is-busy"><b>B2</b>Occupied<small>4 guests · 38 min</small></span>
+                  <span class="s-t"><b>B3</b>Free</span>
+                  <span class="s-t is-busy"><b>B4</b>Occupied<small>2 guests · 25 min</small></span>
+                  <span class="s-t is-busy s-b5"><b>B5</b>Occupied<em>Calling · Ready to order · 0 min</em><small>3 guests · 9 min</small></span>
+                </div>
+                <div class="s-nav"><span class="is-on">▭ Tables</span><span>☰ Orders</span><span>◫ Menu</span></div>
+              </div>
+            </div>
           </div>
-          <div class="use__panel use__panel--kitchen" role="tabpanel" id="panel-kitchen" aria-labelledby="tab-kitchen" hidden>
-            <img src="assets/img/use-kitchen.webp" alt="The kitchen board: one card per table with its dishes, notes like less spicy, how long it has waited, and a start or ready button" width="1600" height="1112" loading="lazy">
+          <div class="use__panel" role="tabpanel" id="panel-kitchen" aria-labelledby="tab-kitchen" hidden>
+            <div class="dev dev--tablet" role="img" aria-label="The kitchen board on a tablet: one tile per table with its dishes and wait time; a new Table A3 order arrives, the cook taps Start, then Ready, and the tile turns green">
+              <div class="ui ui--kitchen">
+                <div class="k-bar"><img src="assets/img/logo.svg" alt="" width="113" height="26"><b>Kitchen</b><span class="k-clock">7:42 pm</span><span class="k-btn">Dish totals</span><span class="k-btn">Sold out</span><span class="k-btn">◐</span></div>
+                <div class="k-board">
+                  <div class="k-tile is-late"><p class="k-head"><b><small>Table</small> A5</b><span>Waiting 24 min</span></p><p class="k-top">24 min ago<span class="pill pill--info">Preparing</span></p><p class="k-items"><span><b>2×</b> Malabar Chicken Biryani</span><span><b>1×</b> Chilli Chicken<em>Less spicy</em></span></p><span class="k-act">Ready</span></div>
+                  <div class="k-tile is-late"><p class="k-head"><b><small>Table</small> B2</b><span>Waiting 21 min</span></p><p class="k-top">21 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>1×</b> Mutton Pepper Masala</span><span><b>4×</b> Kerala Parotta</span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile is-warn"><p class="k-head"><b><small>Table</small> A1</b><span>Waiting 16 min</span></p><p class="k-top">16 min ago<span class="pill pill--info">Preparing</span></p><p class="k-items"><span><b>2×</b> Butter Chicken</span><span><b>3×</b> Kerala Parotta</span></p><span class="k-act">Ready</span></div>
+                  <div class="k-tile is-warn"><p class="k-head"><b><small>Table</small> A6</b><span>Waiting 12 min</span></p><p class="k-top">12 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>1×</b> Chilli Chicken</span><span><b>1×</b> Prawn Fried Rice</span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile is-done"><p class="k-head"><b><small>Table</small> B4</b><span>All ready</span></p><p class="k-top">15 min ago<span class="pill pill--info">Ready</span></p><p class="k-items"><span><b>2×</b> Samosa (2 pcs)</span><span><b>1×</b> Chole Chaat</span></p></div>
+                  <div class="k-tile"><p class="k-head"><b><small>Table</small> A2</b><span>Waiting 7 min</span></p><p class="k-top">7 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>1×</b> Kerala Meals</span><span><b>1×</b> Veg Dum Biryani<em>No onion</em></span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile"><p class="k-head"><b><small>Table</small> B1</b><span>Waiting 4 min</span></p><p class="k-top">4 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>2×</b> Pav Bhaji</span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile is-done k-new"><p class="k-head"><b><small>Table</small> A3</b><span class="swap"><span class="was k-calm">Waiting 1 min</span><span class="now">All ready</span></span></p><p class="k-top">1 min ago<span class="swap"><span class="pill pill--warn s1">In kitchen</span><span class="pill pill--info s2">Preparing</span><span class="pill pill--info now">Ready</span></span></p><p class="k-items"><span><b>1×</b> Paneer Butter Masala + Rice Combo</span><span><b>1×</b> Chicken Curry + Butter Naan Combo</span></p><span class="swap k-acts"><span class="k-act s1">Start</span><span class="k-act k-undo s2">Undo · marking Preparing</span><span class="k-act s3">Ready</span><span class="k-act k-undo s4">Undo · marking Ready</span></span></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="use__panel use__panel--admin" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
-            <img src="assets/img/use-admin.webp" alt="The admin dashboard with orders, sales, live table status and top sellers" width="1600" height="1104" loading="lazy">
+          <div class="use__panel" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
+            <div class="dev dev--tablet" role="img" aria-label="The owner dashboard on a tablet: today's orders, net sales, average spend and cancellations; live tables occupied and orders waiting update as a new Table A3 order comes in">
+              <div class="ui ui--admin">
+                <div class="a-side">
+                  <img src="assets/img/logo.svg" alt="" width="113" height="26">
+                  <span class="is-on">▦ Dashboard</span><span>☰ Orders</span><span>◫ Menu</span>
+                  <p class="a-user"><i>AT</i><span><b>Anjali Thomas</b>Manager</span></p>
+                </div>
+                <div class="a-main">
+                  <p class="a-crumb">Dashboard</p>
+                  <p class="a-h">Overview</p>
+                  <div class="a-grid">
+                    <div class="a-left">
+                      <div class="a-kpis">
+                        <p class="a-card"><span>Orders</span><b>86</b><small><em class="up">+12%</em> since yesterday</small></p>
+                        <p class="a-card"><span>Net Sales</span><b>₹48,260.00</b><small><em class="up">+8%</em> since yesterday</small></p>
+                        <p class="a-card"><span>Avg. Spent</span><b>₹561.16</b><small><em class="down">-4%</em> since yesterday</small></p>
+                        <p class="a-card"><span>Cancellations</span><b>2</b><small><em class="up">-50%</em> since yesterday</small></p>
+                      </div>
+                      <div class="a-card a-live">
+                        <p class="a-h2">Live Operations <span class="a-tag">Live</span></p>
+                        <div class="a-stats">
+                          <p><b class="swap"><span class="was">11</span><span class="now">12</span></b><small>/20</small><span>Tables occupied</span></p>
+                          <p><b class="swap"><span class="was">6</span><span class="now">7</span></b><span>Orders waiting</span></p>
+                        </div>
+                        <p class="a-oldest"><span><span>Oldest order waiting</span><b>24 min</b></span><span class="a-btn">View Orders →</span></p>
+                      </div>
+                      <div class="a-card">
+                        <p class="a-h2">Recent Orders</p>
+                        <p class="a-muted">Latest orders placed today</p>
+                        <div class="a-recent"><div class="a-track">
+                          <p class="a-order"><img src="assets/img/food-combo.webp" alt="" width="320" height="320"><b>Paneer Butter Masala + Rice Combo</b><span>Table <em>A3</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹682.50</strong></span></p>
+                          <p class="a-order"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><b>Malabar Chicken Biryani</b><span>Table <em>A5</em></span><span>Items <em>03</em></span><span class="a-row"><span class="pill pill--info">Preparing</span><strong>₹955.50</strong></span></p>
+                          <p class="a-order"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><b>Chilli Chicken</b><span>Table <em>A6</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹640.50</strong></span></p>
+                          <p class="a-order"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><b>Kerala Meals</b><span>Table <em>A2</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹483.00</strong></span></p>
+                        </div></div>
+                      </div>
+                    </div>
+                    <div class="a-card a-items">
+                      <p class="a-h2">Items Overview</p>
+                      <div class="a-itemstats"><p><span>Total Items</span><b>17</b></p><p><span>Out</span><b>0</b></p></div>
+                      <p class="a-h3">Top sellers</p>
+                      <p class="a-seller"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span>Malabar Chicken Biryani</span><b>24</b></p>
+                      <p class="a-seller"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span>Butter Chicken</span><b>19</b></p>
+                      <p class="a-seller"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><span>Chilli Chicken</span><b>14</b></p>
+                      <p class="a-seller"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><span>Kerala Meals</span><b>12</b></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
