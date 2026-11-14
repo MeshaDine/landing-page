@@ -745,7 +745,6 @@ a { color: inherit; }
   position: relative; display: grid; align-items: center; min-height: 458px; padding: clamp(32px, 5vw, 56px); border-radius: 30px; overflow: clip;
   background: linear-gradient(113deg, #000 5.5%, var(--orange) 96%); color: #fff;
 }.cta__copy { position: relative; z-index: 1; max-width: 480px; }
-.cta .eyebrow { color: rgb(255 255 255 / 0.8); }
 .cta h2 { font-size: clamp(2rem, 4.2vw, 3rem); color: rgb(255 255 255 / 0.85); margin-bottom: 16px; text-wrap: balance; }
 .cta .lead { color: rgb(255 255 255 / 0.8); font-size: 1.125rem; margin-bottom: 40px; }
 .cta__shot { display: none; }
