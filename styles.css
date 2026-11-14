@@ -206,11 +206,12 @@ a { color: inherit; }
 .tabs [role="tab"]::before { content: ""; width: 16px; height: 16px; background: currentColor; mask: var(--icon) center / contain no-repeat; }
 .tabs [role="tab"][aria-selected="true"] { color: var(--text); border-color: var(--text); font-weight: 600; }
 @media (max-width: 599px) { .tabs [role="tab"] { flex: 1 1 0; padding-inline: 6px; white-space: normal; } }
-.use__stage { position: relative; height: clamp(320px, 45vw, 560px); border-radius: 32px; overflow: hidden; background: #ff3c00 url(assets/img/use-bg.webp) center / cover; }
+.use__stage { position: relative; height: clamp(320px, 45vw, 560px); border-radius: 32px; overflow: hidden; background: #ff3c00 url(assets/img/use-bg.webp) center / cover; container-type: size; }
 .use__panel { position: absolute; inset: 0; display: grid; place-items: center; padding: 6% 6% 0; }
-.use__panel img { max-height: 100%; width: auto; object-fit: contain; }
-.use__panel--user { padding-top: 5%; align-items: start; }
+.use__panel img { max-height: calc(100cqh - 6cqw); width: auto; object-fit: contain; }
+.use__panel--user, .use__panel--staff { padding-top: 5%; align-items: start; }
 .use__panel--user img { height: 112%; max-height: none; }
+.use__panel--staff .phone { width: auto; min-width: 0; height: 105cqh; }
 .use__panel--kitchen img { border-radius: 12px 12px 0 0; box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.5); align-self: end; }
 .use__panel--admin img { align-self: end; }
 

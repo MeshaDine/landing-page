@@ -164,6 +164,7 @@
         <h2 class="sec-title reveal">Designed for every use case</h2>
         <div class="tabs" role="tablist" aria-label="Who uses Mesha Dine">
           <button type="button" role="tab" id="tab-user" aria-controls="panel-user" aria-selected="true" style="--icon: url(assets/img/ic-user.svg)">User mode</button>
+          <button type="button" role="tab" id="tab-staff" aria-controls="panel-staff" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-staff.svg)">Staff mode</button>
           <button type="button" role="tab" id="tab-kitchen" aria-controls="panel-kitchen" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-kitchen.svg)">Kitchen mode</button>
           <button type="button" role="tab" id="tab-admin" aria-controls="panel-admin" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-admin.svg)">Admin dashboard</button>
         </div>
@@ -171,8 +172,11 @@
           <div class="use__panel use__panel--user" role="tabpanel" id="panel-user" aria-labelledby="tab-user">
             <img src="assets/img/phone.webp" alt="The guest menu on a phone, with the table PIN, dishes and a shared cart" width="702" height="1435" loading="lazy">
           </div>
+          <div class="use__panel use__panel--staff" role="tabpanel" id="panel-staff" aria-labelledby="tab-staff" hidden>
+            <div class="phone"><img src="assets/img/use-staff.webp" alt="The staff app on a phone: every table with its guests and time seated, and a table calling for a waiter" width="600" height="1299" loading="lazy"></div>
+          </div>
           <div class="use__panel use__panel--kitchen" role="tabpanel" id="panel-kitchen" aria-labelledby="tab-kitchen" hidden>
-            <img src="assets/img/use-kitchen.webp" alt="The orders screen listing each table’s order with its status: pending, completed or cancelled" width="1600" height="1040" loading="lazy">
+            <img src="assets/img/use-kitchen.webp" alt="The kitchen board: one card per table with its dishes, notes like less spicy, how long it has waited, and a start or ready button" width="1600" height="1112" loading="lazy">
           </div>
           <div class="use__panel use__panel--admin" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
             <img src="assets/img/use-admin.webp" alt="The admin dashboard with orders, sales, live table status and top sellers" width="1600" height="1104" loading="lazy">
