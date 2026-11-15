@@ -3,15 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mesha Dine · QR table ordering for restaurants</title>
-  <meta name="description" content="Guests scan the QR code on their table, order together from one shared cart and see the bill on their phone. No app to install.">
-  <meta name="theme-color" content="#971c1c">
-  <meta property="og:title" content="Mesha Dine · QR table ordering for restaurants">
-  <meta property="og:description" content="Guests scan, order together from one shared cart and see the bill on their phone. No app to install.">
+  <title>Mesha Dine · Ordering, kitchen and insights for restaurants</title>
+  <meta name="description" content="One system for your restaurant: guests order together from their phones, staff see every table, the kitchen works from one board, and you see today's sales live. No app to install.">
+  <meta name="theme-color" content="#fef9f4">
+  <meta property="og:title" content="Mesha Dine · Ordering, kitchen and insights for restaurants">
+  <meta property="og:description" content="One system for your restaurant: guests order together from their phones, staff see every table, the kitchen works from one board, and you see today's sales live. No app to install.">
+  <!-- Runs before first paint so a saved theme never flashes the other one. -->
+  <script>
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch {}
+    const dark = (document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark";
+    document.querySelector('meta[name="theme-color"]').content = dark ? "#171717" : "#fef9f4";
+  </script>
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..700&display=swap">
   <link rel="stylesheet" href="styles.css">
   <script src="main.js" defer></script>
 </head>
@@ -21,65 +30,56 @@
   <header class="nav">
     <div class="wrap nav__inner">
       <a class="logo" href="#top" aria-label="Mesha Dine home">
-        <img src="assets/icons/favicon.svg" alt="" width="32" height="32">
-        <span>Mesha Dine</span>
+        <img src="assets/img/logo.svg" alt="" width="113" height="26">
       </a>
-      <nav class="nav__links" aria-label="Sections">
+      <button type="button" class="nav__menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only">Menu</span><span class="nav__bars" aria-hidden="true"></span>
+      </button>
+      <nav class="nav__links" id="nav-links" aria-label="Sections">
         <a href="#how">How it works</a>
-        <a href="#why">Why Mesha Dine</a>
+        <a href="#use-cases">Use cases</a>
         <a href="#faq">FAQ</a>
+        <span class="nav__rule" aria-hidden="true"></span>
+        <a href="#contact">Contact</a>
       </nav>
-      <a class="btn btn--sm" href="#contact" data-cta="whatsapp">Book a demo</a>
+      <div class="nav__end">
+        <button type="button" class="theme" aria-pressed="false">
+          <span class="sr-only">Dark mode</span>
+          <svg class="theme__sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+          <svg class="theme__moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+        <a class="btn btn--sm" href="#contact" data-cta="whatsapp">Book a demo<span class="btn__chev" aria-hidden="true"></span></a>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <!-- 1. Hero -->
     <section class="hero" id="top">
-      <div class="hero__glow hero__glow--a parallax" style="--shift: 160px" aria-hidden="true"></div>
-      <div class="hero__glow hero__glow--b parallax" style="--shift: -120px" aria-hidden="true"></div>
-
-      <div class="wrap hero__grid">
+      <div class="wrap">
         <div class="hero__copy">
-          <p class="eyebrow">QR table ordering</p>
-          <h1>Let the whole table <em>order together.</em></h1>
-          <p class="lead">Guests scan the QR code on their table, add dishes to one shared cart and see their orders and bill on their own phone. No app to install, no waiting to be noticed.</p>
-          <div class="hero__ctas">
-            <a class="btn" href="#contact" data-cta="whatsapp">Book a demo on WhatsApp</a>
-            <a class="btn btn--ghost" href="#how">See how it works</a>
+          <p class="eyebrow">Complete restaurant solution</p>
+          <h1>Run your whole restaurant from one place.</h1>
+          <p class="hero__lead">Guests order from their table, staff and kitchen get every order at once, and you see the day’s sales as they happen.</p>
+          <div class="ctas">
+            <a class="btn" href="#contact" data-cta="whatsapp">Book a demo<span class="btn__chev" aria-hidden="true"></span></a>
+            <a class="btn btn--ghost" href="#contact" data-cta="email">Contact us</a>
           </div>
         </div>
 
         <div class="hero__stage" aria-hidden="true">
-          <div class="phone parallax" style="--shift: -40px">
-            <div class="phone__screen">
-              <div class="scr scr--menu">
-                <div class="app-top">
-                  <span class="app-brand">Spice Route</span>
-                  <span class="strip">Table 12 · PIN 4821</span>
-                </div>
-                <p class="greet">Good evening, Riya</p>
-                <div class="search">Search dishes</div>
-                <div class="chips"><span class="chip chip--on">Veg only</span><span class="chip">Best sellers</span></div>
-                <p class="app-h">Our specials</p>
-                <div class="grid2">
-                  <div class="card"><div class="dish dish--a">🍢</div><img src="assets/icons/veg.svg" alt="" width="14" height="14"><b>Paneer Tikka</b><span>₹280</span></div>
-                  <div class="card"><div class="dish dish--b">🍛</div><img src="assets/icons/veg.svg" alt="" width="14" height="14"><b>Dal Makhani</b><span>₹240</span></div>
-                </div>
-                <div class="cartbar"><span>3 items · ₹600</span><span>View cart</span></div>
-              </div>
-            </div>
+          <div class="band"><img src="assets/img/hero-band.webp" alt="" width="736" height="1308"></div>
+          <div class="phone hero__phone"><span class="sb"><i></i></span><div class="ui ui--guest" data-tpl="guest"></div></div>
+          <div class="mini mini--order parallax" style="--shift: -60px">
+            <img src="assets/img/food-biryani.webp" alt="" width="320" height="320">
+            <b>Malabar Chicken Biryani</b>
+            <dl><dt>Table</dt><dd>A5</dd><dt>Items</dt><dd>03</dd></dl>
+            <div class="mini__foot"><span class="status">Preparing</span><strong>₹955.50</strong></div>
           </div>
-          <div class="float float--qr parallax" style="--shift: -140px">
-            <div class="qr"></div>
-            <span>Scan to order<br><b>Table 12</b></span>
-          </div>
-          <div class="float float--pin parallax" style="--shift: -220px">
-            <small>Your table PIN</small>
-            <b>4 8 2 1</b>
-          </div>
-          <div class="float float--add parallax" style="--shift: -90px">
-            <span class="avatar" style="--c:#ee8e1d">A</span> Aman added <b>Butter Chicken</b>
+          <div class="mini mini--stat parallax" style="--shift: -110px">
+            <span class="mini__head"><img src="assets/img/ic-orders.svg" alt="" width="20" height="20">Orders</span>
+            <strong>86</strong>
+            <span class="mini__trend"><img src="assets/img/ic-trend.svg" alt="" width="20" height="20"><em>+12%</em> since yesterday</span>
           </div>
         </div>
       </div>
@@ -88,205 +88,302 @@
     <!-- 2. How it works -->
     <section class="how" id="how">
       <div class="wrap">
-        <header class="sec-head reveal">
-          <p class="eyebrow">How it works</p>
-          <h2>From sitting down to the bill, on their phones.</h2>
-        </header>
-
-        <div class="how__grid">
-          <div class="how__stick" aria-hidden="true">
-            <div class="phone phone--how" data-step="1">
-              <div class="phone__screen">
-                <div class="scr scr--s1">
-                  <div class="viewfinder"><div class="qr qr--big"></div></div>
-                  <div class="toast">Open Spice Route menu · Table 12</div>
-                </div>
-                <div class="scr scr--s2">
-                  <p class="app-h center">Your table is ready</p>
-                  <div class="pin-big"><span>4</span><span>8</span><span>2</span><span>1</span></div>
-                  <p class="muted center">Friends at the table join with this PIN</p>
-                  <div class="people"><span class="avatar" style="--c:#971c1c">R</span><span class="avatar" style="--c:#ee8e1d">A</span><span class="avatar" style="--c:#2f6f5e">S</span><span class="joined">3 joined</span></div>
-                  <div class="app-btn">Share PIN</div>
-                </div>
-                <div class="scr scr--s3">
-                  <p class="app-h">Shared cart</p>
-                  <div class="row"><img src="assets/icons/veg.svg" alt="" width="14" height="14"><div><b>Paneer Tikka</b><small>added by Riya</small></div><span class="qty">− 1 +</span></div>
-                  <div class="row"><img src="assets/icons/non-veg.svg" alt="" width="14" height="14"><div><b>Butter Chicken</b><small>added by Aman</small></div><span class="qty">− 1 +</span></div>
-                  <div class="row"><img src="assets/icons/veg.svg" alt="" width="14" height="14"><div><b>Garlic Naan</b><small>added by Sara · “extra butter”</small></div><span class="qty">− 4 +</span></div>
-                  <div class="row"><img src="assets/icons/veg.svg" alt="" width="14" height="14"><div><b>Mango Lassi</b><small>added by Sara</small></div><span class="qty">− 2 +</span></div>
-                  <div class="app-btn">Place order · ₹1,120</div>
-                </div>
-                <div class="scr scr--s4">
-                  <div class="done">✓</div>
-                  <p class="app-h center">Order placed</p>
-                  <div class="bill">
-                    <div><span>Paneer Tikka × 1</span><span>₹280</span></div>
-                    <div><span>Butter Chicken × 1</span><span>₹360</span></div>
-                    <div><span>Garlic Naan × 4</span><span>₹240</span></div>
-                    <div><span>Mango Lassi × 2</span><span>₹240</span></div>
-                    <div><span>GST</span><span>₹56</span></div>
-                    <div class="bill__total"><span>Table bill</span><span>₹1,176</span></div>
+        <h2 class="sec-title reveal">From sitting down to the bill on their phones.</h2>
+        <div class="how__track">
+          <div class="how__grid">
+            <div class="steps">
+              <details name="how" open data-screen="scan">
+                <summary><span class="step__n">01</span><span class="step__t">Scan the table’s QR code</span></summary>
+                <ul>
+                  <li>Every table gets its own code.</li>
+                  <li>The phone camera opens your menu in the browser, already set to the right table.</li>
+                  <li>Nothing to download.</li>
+                </ul>
+              </details>
+              <details name="how" data-screen="pin">
+                <summary><span class="step__n">02</span><span class="step__t">Start a table, or join with a PIN</span></summary>
+                <ul>
+                  <li>The first guest types a nickname and starts the table.</li>
+                  <li>They get a 4-digit PIN.</li>
+                  <li>Everyone else at the table joins with it.</li>
+                </ul>
+              </details>
+              <details name="how" data-screen="menu">
+                <summary><span class="step__n">03</span><span class="step__t">Fill one shared cart</span></summary>
+                <ul>
+                  <li>Everyone adds dishes to the same cart from their own phone.</li>
+                  <li>Notes like “less spicy” go with each dish.</li>
+                  <li>The host places the order for the table.</li>
+                </ul>
+              </details>
+              <details name="how" data-screen="orders">
+                <summary><span class="step__n">04</span><span class="step__t">Orders and the bill, live</span></summary>
+                <ul>
+                  <li>Order more rounds any time.</li>
+                  <li>Every guest sees what the table has ordered and the running bill.</li>
+                  <li>No surprises at the end.</li>
+                </ul>
+              </details>
+            </div>
+            <div class="how__shot" aria-hidden="true">
+              <div class="phone how__phone">
+                <span class="sb"><i></i></span>
+                <div class="how__scr scan is-on" data-screen="scan">
+                  <div class="scan__cam">
+                    <div class="scan__stand"><b>Scan to order</b><img src="assets/img/qr.svg" alt="" width="25" height="25"><span>Table 1</span></div>
+                    <i class="scan__frame"></i><i class="scan__line"></i><i class="scan__ok"></i>
+                    <span class="scan__link">Open in browser</span>
                   </div>
-                  <p class="muted center">Everyone at the table sees the same bill</p>
+                  <div class="scan__load"><i></i></div>
+                  <div class="ui ui--land scan__start" data-tpl="start"></div>
+                </div>
+                <div class="how__scr flow" data-screen="pin">
+                  <div class="ui ui--land flow__start" data-tpl="start"></div>
+                  <div class="flow__sheet">
+                    <p class="l-welcome">welcome to <b>Mesha Dine</b></p>
+                    <p class="l-h2">Please add a nickname</p>
+                    <span class="l-input swap"><span class="t0">e.g. John</span><span class="t1">R</span><span class="t2">Ri</span><span class="t3">Riy</span><span class="now">Riya</span></span>
+                    <span class="l-btn">Start New Table<i class="l-ic l-ic--arrow"></i></span>
+                  </div>
+                  <div class="ui ui--guest flow__menu" data-tpl="guest"></div>
+                  <div class="ui ui--land flow__join">
+                    <div class="l-hero l-hero--short"><span class="l-logo"><img src="assets/img/logo.svg" alt="" width="113" height="26"></span></div>
+                    <img class="l-art" src="assets/img/welcome.svg" alt="" width="200" height="200">
+                    <p class="l-h">Join Riya's table?</p>
+                    <p class="l-p">Table “<b>1</b>” is currently occupied. To join this session, please enter the PIN shown on the host's phone.</p>
+                    <div class="l-pin"><span class="swap"><span class="p0"></span><span class="now">8</span></span><span class="swap"><span class="p0"></span><span class="now">6</span></span><span class="swap"><span class="p0"></span><span class="now">7</span></span><span class="swap"><span class="p0"></span><span class="now">5</span></span></div>
+                    <span class="l-btn">Join Session</span>
+                  </div>
+                  <span class="flow__cap">A friend joins</span>
+                </div>
+                <div class="how__scr ui ui--guest" data-screen="menu" data-tpl="guest"></div>
+                <div class="how__scr ui ui--orders" data-screen="orders">
+                  <img class="g-logo" src="assets/img/logo.svg" alt="" width="113" height="26">
+                  <div class="o-strip"><span>Table no: <b>1</b></span><span class="o-pin">PIN <b>8675</b></span><i class="g-toggle"></i></div>
+                  <p class="o-h">Your orders</p>
+                  <div class="o-card">
+                    <p class="o-top"><b>Order at 7:38 pm</b><span>Sent to kitchen</span></p>
+                    <p class="o-line"><span>1 × Butter Chicken</span><span>₹290.00</span></p>
+                    <p class="o-line"><span>1 × Malabar Chicken Biryani</span><span>₹320.00</span></p>
+                    <p class="o-line"><span>1 × Paneer Tikka</span><span>₹240.00</span></p>
+                    <p class="o-line"><span>1 × Kerala Meals</span><span>₹220.00</span></p>
+                    <p class="o-line o-sub"><span>Subtotal</span><span>₹1,070.00</span></p>
+                    <p class="o-line o-sub"><span>GST (5%)</span><span>₹53.50</span></p>
+                    <p class="o-line o-total"><span>Total</span><span>₹1,123.50</span></p>
+                  </div>
+                  <span class="o-bill">View bill</span>
+                  <div class="g-nav"><span>Home</span><span class="is-on">My Order</span><span>Waiter</span></div>
                 </div>
               </div>
             </div>
           </div>
-
-          <ol class="steps">
-            <li class="step" data-step="1">
-              <span class="step__n">01</span>
-              <h3>Scan the table’s QR code</h3>
-              <p>Every table gets its own code. The phone camera opens your menu in the browser, already set to the right table. Nothing to download.</p>
-            </li>
-            <li class="step" data-step="2">
-              <span class="step__n">02</span>
-              <h3>Start a table, or join with a PIN</h3>
-              <p>The first guest types a nickname and starts the table. They get a 4-digit PIN, and everyone else at the table joins with it.</p>
-            </li>
-            <li class="step" data-step="3">
-              <span class="step__n">03</span>
-              <h3>Fill one shared cart</h3>
-              <p>Everyone browses and adds dishes to the same cart from their own phone, with notes like “less spicy”. The host places the order for the table.</p>
-            </li>
-            <li class="step" data-step="4">
-              <span class="step__n">04</span>
-              <h3>Orders and the bill, live</h3>
-              <p>Order more rounds any time. Every guest sees what the table has ordered and the running bill, so there are no surprises at the end.</p>
-            </li>
-          </ol>
         </div>
       </div>
     </section>
 
-    <!-- 3. Why owners -->
-    <section class="why" id="why">
+    <!-- 3. Better experience -->
+    <section class="exp" id="why">
       <div class="wrap">
-        <header class="sec-head reveal">
-          <p class="eyebrow">Why Mesha Dine</p>
-          <h2>Built for busy floors, not for app stores.</h2>
-        </header>
-        <div class="why__grid">
-          <article class="feat reveal">
-            <span class="feat__icon" aria-hidden="true">📱</span>
-            <h3>No app to install</h3>
-            <p>It opens in the phone’s browser from a QR code. Guests are ordering in seconds, not stuck on a download screen.</p>
+        <h2 class="sec-title reveal">One system for every side of your restaurant</h2>
+        <div class="exp__grid">
+          <article class="card card--featured reveal">
+            <div class="shot shot--guest" aria-hidden="true">
+              <div class="ui ui--guest" data-tpl="guest"></div>
+              <div class="ui shot__pop">
+                <div class="g-dish"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Butter Chicken</b><span class="g-row">₹290.00<span class="g-step">−<span>01</span>+</span></span></div>
+              </div>
+            </div>
+            <h3>Every order, right on time</h3>
+            <p>Keep guests informed as their orders move from placement to preparation and serving. Give everyone a clearer view of what’s happening at their table.</p>
           </article>
-          <article class="feat reveal">
-            <span class="feat__icon" aria-hidden="true">👥</span>
-            <h3>One table, one order</h3>
-            <p>A shared cart and a table PIN keep groups together. No more collecting choices from six people for one ticket.</p>
+          <article class="card reveal">
+            <div class="shot shot--admin" aria-hidden="true">
+              <div class="ui ui--admin" data-tpl="admin"></div>
+              <div class="ui shot__pop">
+                <div class="a-card a-live">
+                  <p class="a-h2">Live Operations <span class="a-tag">Live</span></p>
+                  <div class="a-stats"><p><b>12</b><small>/20</small><span>Tables occupied</span></p><p><b>7</b><span>Orders waiting</span></p></div>
+                  <p class="a-oldest"><span><span>Oldest order waiting</span><b>24 min</b></span><span class="a-btn">View Orders →</span></p>
+                </div>
+              </div>
+            </div>
+            <h3>See your restaurant at a glance</h3>
+            <p>Today’s orders, sales, average spend and cancellations against yesterday, plus live tables, waiting orders and top sellers.</p>
           </article>
-          <article class="feat reveal">
-            <span class="feat__icon" aria-hidden="true">✍️</span>
-            <h3>Orders in the guest’s own words</h3>
-            <p>Guests pick dishes and write their own special instructions, so fewer orders get misheard on a noisy evening.</p>
-          </article>
-          <article class="feat reveal">
-            <span class="feat__icon" aria-hidden="true">🥗</span>
-            <h3>A menu that’s easy to browse</h3>
-            <p>Veg and non-veg marks, best sellers, search and price filters help guests find what they want quickly.</p>
-          </article>
-          <article class="feat reveal">
-            <span class="feat__icon" aria-hidden="true">🧾</span>
-            <h3>The bill is never a surprise</h3>
-            <p>Every guest sees each round and the running table bill on their own phone.</p>
-          </article>
-          <article class="feat reveal">
-            <span class="feat__icon" aria-hidden="true">🎨</span>
-            <h3>Looks like your restaurant</h3>
-            <p>Your name and colours across the menu, so it feels like your own place, not a generic ordering app.</p>
+          <article class="card card--photo reveal">
+            <img src="assets/img/diners.webp" alt="" width="2480" height="1654" loading="lazy">
+            <div>
+              <h3>Your team, always in sync</h3>
+              <p>Staff see every table and waiter call, the kitchen works from one board, and a dish that runs out is switched off for everyone at once.</p>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 4. Brand demo -->
+    <!-- 4. Use cases -->
+    <section class="use" id="use-cases">
+      <div class="wrap">
+        <h2 class="sec-title reveal">Built for everyone in your restaurant</h2>
+        <div class="tabs" role="tablist" aria-label="Who uses Mesha Dine">
+          <button type="button" role="tab" id="tab-user" aria-controls="panel-user" aria-selected="true" style="--icon: url(assets/img/ic-user.svg)">User mode</button>
+          <button type="button" role="tab" id="tab-staff" aria-controls="panel-staff" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-staff.svg)">Staff mode</button>
+          <button type="button" role="tab" id="tab-kitchen" aria-controls="panel-kitchen" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-kitchen.svg)">Kitchen mode</button>
+          <button type="button" role="tab" id="tab-admin" aria-controls="panel-admin" aria-selected="false" tabindex="-1" style="--icon: url(assets/img/ic-admin.svg)">Admin dashboard</button>
+        </div>
+        <div class="use__stage">
+          <div class="use__panel" role="tabpanel" id="panel-user" aria-labelledby="tab-user">
+            <div class="phone" role="img" aria-label="The guest menu on a phone: the guest scrolls the menu, taps the plus under Butter Chicken, and the shared cart goes from 3 to 4 items">
+              <span class="sb"><i></i></span><div class="ui ui--guest" data-tpl="guest"></div>
+            </div>
+          </div>
+          <div class="use__panel" role="tabpanel" id="panel-staff" aria-labelledby="tab-staff" hidden>
+            <div class="phone" role="img" aria-label="The staff app on a phone: Table B5 calls a waiter, moves to the top of the tables list, and the waiter taps Done">
+              <span class="sb"><i></i></span>
+              <div class="ui ui--staff">
+                <p class="s-h">Tables</p>
+                <p class="s-sub">12 occupied · 8 free</p>
+                <div class="s-chips"><span class="is-on">All</span><span>Occupied</span><span>Free</span></div>
+                <div class="s-callwrap"><div class="s-call"><span><b>Table B5</b><em>Calling · Ready to order · 0 min</em></span><span class="s-done">Done</span></div></div>
+                <div class="s-grid">
+                  <span class="s-t is-busy"><b>A1</b>Occupied<small>2 guests · 1 h 5 min</small></span>
+                  <span class="s-t is-busy"><b>A2</b>Occupied<small>4 guests · 48 min</small></span>
+                  <span class="s-t is-busy"><b>A3</b>Occupied<small>3 guests · 2 min</small></span>
+                  <span class="s-t"><b>A4</b>Free</span>
+                  <span class="s-t is-busy"><b>A5</b>Occupied<small>2 guests · 35 min</small></span>
+                  <span class="s-t is-busy"><b>A6</b>Occupied<small>5 guests · 18 min</small></span>
+                  <span class="s-t"><b>A7</b>Free</span>
+                  <span class="s-t is-busy"><b>B1</b>Occupied<small>2 guests · 12 min</small></span>
+                  <span class="s-t is-busy"><b>B2</b>Occupied<small>4 guests · 38 min</small></span>
+                  <span class="s-t"><b>B3</b>Free</span>
+                  <span class="s-t is-busy"><b>B4</b>Occupied<small>2 guests · 25 min</small></span>
+                  <span class="s-t is-busy s-b5"><b>B5</b>Occupied<em>Calling · Ready to order · 0 min</em><small>3 guests · 9 min</small></span>
+                </div>
+                <div class="s-nav"><span class="is-on">▭ Tables</span><span>☰ Orders</span><span>◫ Menu</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="use__panel" role="tabpanel" id="panel-kitchen" aria-labelledby="tab-kitchen" hidden>
+            <div class="dev dev--tablet" role="img" aria-label="The kitchen board on a tablet: one tile per table with its dishes and wait time; a new Table A3 order arrives, the cook taps Start, then Ready, and the tile turns green">
+              <div class="ui ui--kitchen">
+                <div class="k-bar"><img src="assets/img/logo.svg" alt="" width="113" height="26"><b>Kitchen</b><span class="k-clock">7:42 pm</span><span class="k-btn">Dish totals</span><span class="k-btn">Sold out</span><span class="k-btn">◐</span></div>
+                <div class="k-board">
+                  <div class="k-tile is-late"><p class="k-head"><b><small>Table</small> A5</b><span>Waiting 24 min</span></p><p class="k-top">24 min ago<span class="pill pill--info">Preparing</span></p><p class="k-items"><span><b>2×</b> Malabar Chicken Biryani</span><span><b>1×</b> Chilli Chicken<em>Less spicy</em></span></p><span class="k-act">Ready</span></div>
+                  <div class="k-tile is-late"><p class="k-head"><b><small>Table</small> B2</b><span>Waiting 21 min</span></p><p class="k-top">21 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>1×</b> Mutton Pepper Masala</span><span><b>4×</b> Kerala Parotta</span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile is-warn"><p class="k-head"><b><small>Table</small> A1</b><span>Waiting 16 min</span></p><p class="k-top">16 min ago<span class="pill pill--info">Preparing</span></p><p class="k-items"><span><b>2×</b> Butter Chicken</span><span><b>3×</b> Kerala Parotta</span></p><span class="k-act">Ready</span></div>
+                  <div class="k-tile is-warn"><p class="k-head"><b><small>Table</small> A6</b><span>Waiting 12 min</span></p><p class="k-top">12 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>1×</b> Chilli Chicken</span><span><b>1×</b> Prawn Fried Rice</span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile is-done"><p class="k-head"><b><small>Table</small> B4</b><span>All ready</span></p><p class="k-top">15 min ago<span class="pill pill--info">Ready</span></p><p class="k-items"><span><b>2×</b> Samosa (2 pcs)</span><span><b>1×</b> Chole Chaat</span></p></div>
+                  <div class="k-tile"><p class="k-head"><b><small>Table</small> A2</b><span>Waiting 7 min</span></p><p class="k-top">7 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>1×</b> Kerala Meals</span><span><b>1×</b> Veg Dum Biryani<em>No onion</em></span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile"><p class="k-head"><b><small>Table</small> B1</b><span>Waiting 4 min</span></p><p class="k-top">4 min ago<span class="pill pill--warn">In kitchen</span></p><p class="k-items"><span><b>2×</b> Pav Bhaji</span></p><span class="k-act">Start</span></div>
+                  <div class="k-tile is-done k-new"><p class="k-head"><b><small>Table</small> A3</b><span class="swap"><span class="was k-calm">Waiting 1 min</span><span class="now">All ready</span></span></p><p class="k-top">1 min ago<span class="swap"><span class="pill pill--warn s1">In kitchen</span><span class="pill pill--info s2">Preparing</span><span class="pill pill--info now">Ready</span></span></p><p class="k-items"><span><b>1×</b> Paneer Butter Masala + Rice Combo</span><span><b>1×</b> Chicken Curry + Butter Naan Combo</span></p><span class="swap k-acts"><span class="k-act s1">Start</span><span class="k-act k-undo s2">Undo · marking Preparing</span><span class="k-act s3">Ready</span><span class="k-act k-undo s4">Undo · marking Ready</span></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="use__panel" role="tabpanel" id="panel-admin" aria-labelledby="tab-admin" hidden>
+            <div class="dev dev--tablet" role="img" aria-label="The owner dashboard on a tablet: today's orders, net sales, average spend and cancellations; live tables occupied and orders waiting update as a new Table A3 order comes in">
+              <div class="ui ui--admin" data-tpl="admin"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Brand demo -->
     <section class="brand" id="brand">
-      <div class="wrap brand__grid">
-        <div class="brand__copy reveal">
-          <p class="eyebrow">Your brand</p>
-          <h2>See your menu, in your brand.</h2>
-          <p class="lead">Add your logo, name and colours to see what your guests will see.</p>
-        </div>
-
-        <div class="studio">
-            <div class="field">
-              <label for="brand-name">Restaurant name</label>
-              <input id="brand-name" type="text" maxlength="28" value="Spice Route" autocomplete="organization">
+      <div class="wrap">
+        <h2 class="sec-title reveal">See your menu, in your brand.</h2>
+        <div class="brand__card">
+          <div class="studio">
+            <div class="studio__head">
+              <h3>Try it with your restaurant</h3>
+              <p>Add your logo, name and colours to see what your guests will see.</p>
             </div>
 
-            <div class="field">
-              <span class="label">Logo</span>
-              <div class="upload-row">
+            <div class="studio__box">
+              <div class="upload-zone">
                 <input id="brand-logo" class="sr-only" type="file" accept="image/png,image/jpeg,image/svg+xml">
-                <label class="upload" for="brand-logo">Upload logo</label>
-                <button type="button" class="upload upload--clear" id="logo-clear" hidden>Remove</button>
+                <label class="upload" for="brand-logo"><span class="upload__icon" aria-hidden="true"></span>Upload logo</label>
+                <p class="hint">PNG, SVG or JPG, up to 2MB. It stays on your device.</p>
+                <button type="button" class="upload-clear" id="logo-clear" hidden>Remove logo</button>
+                <p class="error" id="logo-error" role="alert" hidden></p>
               </div>
-              <p class="hint">Your logo stays on your device. PNG, JPG or SVG, up to 2MB.</p>
-              <p class="error" id="logo-error" role="alert" hidden></p>
+              <div class="field">
+                <label for="brand-name">Restaurant name</label>
+                <input id="brand-name" type="text" maxlength="28" value="Spice Route" autocomplete="organization">
+              </div>
             </div>
 
-            <div class="colors">
-              <div class="picker">
-                <button type="button" class="picker__btn" id="btn-primary" aria-expanded="false" aria-controls="pop-primary">
-                  <span class="picker__dot" aria-hidden="true"></span><span>Main colour</span><code class="picker__hex"></code>
-                </button>
-                <div class="picker__pop" id="pop-primary" role="group" aria-label="Main colour" hidden>
-                  <div class="picker__grid"></div>
-                  <div class="picker__row">
-                    <label class="picker__hexfield" for="hex-primary"><span aria-hidden="true">#</span><span class="sr-only">Main colour hex code</span>
-                      <input id="hex-primary" type="text" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="off">
-                    </label>
-                    <input id="brand-primary" class="sr-only" type="color" value="#971c1c">
-                    <label class="picker__more" for="brand-primary">More colours…</label>
+            <div class="field">
+              <span class="label">Brand colours</span>
+              <div class="colors">
+                <div class="picker">
+                  <button type="button" class="picker__btn" id="btn-primary" aria-expanded="false" aria-controls="pop-primary">
+                    <span class="picker__dot" aria-hidden="true"></span><span class="picker__txt">Main colour<code class="picker__hex"></code></span>
+                  </button>
+                  <div class="picker__pop" id="pop-primary" role="group" aria-label="Main colour" hidden>
+                    <div class="picker__grid"></div>
+                    <div class="picker__row">
+                      <label class="picker__hexfield" for="hex-primary"><span aria-hidden="true">#</span><span class="sr-only">Main colour hex code</span>
+                        <input id="hex-primary" type="text" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="off">
+                      </label>
+                      <input id="brand-primary" class="sr-only" type="color" value="#ff3c00">
+                      <label class="picker__more" for="brand-primary">More colours…</label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="picker">
-                <button type="button" class="picker__btn" id="btn-secondary" aria-expanded="false" aria-controls="pop-secondary">
-                  <span class="picker__dot" aria-hidden="true"></span><span>Accent colour</span><code class="picker__hex"></code>
-                </button>
-                <div class="picker__pop" id="pop-secondary" role="group" aria-label="Accent colour" hidden>
-                  <div class="picker__grid"></div>
-                  <div class="picker__row">
-                    <label class="picker__hexfield" for="hex-secondary"><span aria-hidden="true">#</span><span class="sr-only">Accent colour hex code</span>
-                      <input id="hex-secondary" type="text" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="off">
-                    </label>
-                    <input id="brand-secondary" class="sr-only" type="color" value="#ee8e1d">
-                    <label class="picker__more" for="brand-secondary">More colours…</label>
+                <div class="picker">
+                  <button type="button" class="picker__btn" id="btn-secondary" aria-expanded="false" aria-controls="pop-secondary">
+                    <span class="picker__dot" aria-hidden="true"></span><span class="picker__txt">Accent colour<code class="picker__hex"></code></span>
+                  </button>
+                  <div class="picker__pop" id="pop-secondary" role="group" aria-label="Accent colour" hidden>
+                    <div class="picker__grid"></div>
+                    <div class="picker__row">
+                      <label class="picker__hexfield" for="hex-secondary"><span aria-hidden="true">#</span><span class="sr-only">Accent colour hex code</span>
+                        <input id="hex-secondary" type="text" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="off">
+                      </label>
+                      <input id="brand-secondary" class="sr-only" type="color" value="#fef9f4">
+                      <label class="picker__more" for="brand-secondary">More colours…</label>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="field">
-              <span class="label" id="presets-label">Or start from a preset</span>
+              <span class="label" id="presets-label">Start with a preset</span>
               <div class="swatches" role="radiogroup" aria-labelledby="presets-label">
-                <button type="button" role="radio" aria-checked="true" style="--sw:#971c1c" data-brand="#971c1c" data-accent="#ee8e1d" data-name="Spice Route"><span>Chilli red</span></button>
-                <button type="button" role="radio" aria-checked="false" style="--sw:#00392b" data-brand="#00392b" data-accent="#c9a227" data-name="Green Leaf"><span>Forest green</span></button>
-                <button type="button" role="radio" aria-checked="false" style="--sw:#2d3a8c" data-brand="#2d3a8c" data-accent="#e8618c" data-name="Blue Lotus"><span>Indigo</span></button>
-                <button type="button" role="radio" aria-checked="false" style="--sw:#7a3e00" data-brand="#7a3e00" data-accent="#e0a458" data-name="Chai House"><span>Chai brown</span></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="Red" style="--sw:#ff4041" data-brand="#ff4041" data-accent="#fef9f4"></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="Green" style="--sw:#00982e" data-brand="#00982e" data-accent="#fef9f4"></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="Sky blue" style="--sw:#289bff" data-brand="#289bff" data-accent="#fef9f4"></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="Yellow" style="--sw:#ffc628" data-brand="#ffc628" data-accent="#fef9f4"></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="Lime" style="--sw:#9dcc00" data-brand="#9dcc00" data-accent="#fef9f4"></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="Blue" style="--sw:#1500f9" data-brand="#1500f9" data-accent="#fef9f4"></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="Orange" style="--sw:#ff8928" data-brand="#ff8928" data-accent="#fef9f4"></button>
               </div>
             </div>
 
-            <a class="btn btn--light" href="#contact" data-cta="whatsapp-brand">Book a demo with these colours</a>
-        </div>
-        <div class="brand__stage" aria-hidden="true">
-          <div class="phone phone--brand">
-            <div class="phone__screen">
-              <div class="scr scr--menu">
-                <div class="app-top">
+            <a class="btn" href="#contact" data-cta="whatsapp-brand">Book a demo with these colours<span class="btn__chev" aria-hidden="true"></span></a>
+          </div>
+
+          <div class="brand__stage" aria-hidden="true">
+            <div class="phone">
+              <span class="sb"><i></i></span>
+              <div class="app">
+                <div class="app__top">
                   <img class="app-logo" data-brand-logo alt="" hidden>
                   <span class="app-brand" data-brand-name>Spice Route</span>
-                  <span class="strip">Table 7 · PIN 3390</span>
                 </div>
-                <p class="greet">Good afternoon</p>
-                <div class="chips"><span class="chip chip--on">Best sellers</span><span class="chip">Veg only</span><span class="chip">Under ₹300</span></div>
-                <div class="row"><img src="assets/icons/veg.svg" alt="" width="14" height="14"><div><b>Masala Dosa</b><small>₹180</small></div><span class="add">Add</span></div>
-                <div class="row"><img src="assets/icons/non-veg.svg" alt="" width="14" height="14"><div><b>Chicken Biryani</b><small>₹320</small></div><span class="add">Add</span></div>
-                <div class="row"><img src="assets/icons/veg.svg" alt="" width="14" height="14"><div><b>Chole Bhature</b><small>₹220</small></div><span class="add">Add</span></div>
-                <div class="cartbar"><span>2 items · ₹500</span><span>View cart</span></div>
+                <div class="strip"><span>Table PIN code: <b>8675</b></span></div>
+                <div class="app__search"><span>Search…</span><span class="app__filter"></span></div>
+                <p class="greet">Good evening, <b>Riya</b></p>
+                <div class="chips"><span class="chip">Veg only</span><span class="chip">Non-veg</span><span class="chip chip--on">Best sellers</span></div>
+                <p class="app-h">Our specials</p>
+                <div class="grid2">
+                  <div class="dish"><img src="assets/img/dish-chicken.webp" alt="" width="415" height="410" loading="lazy"><small>Best seller</small><b>Chicken Dry Fry</b><span class="dish__row"><span>₹270</span><span class="qty">− 2 +</span></span></div>
+                  <div class="dish"><img src="assets/img/dish-butter.webp" alt="" width="415" height="410" loading="lazy"><small>Best seller</small><b>Butter Chicken</b><span class="dish__row"><span>₹320</span><span class="qty">− 1 +</span></span></div>
+                </div>
+                <div class="app__tabs"><span class="is-on">Home</span><span>My order</span><span>Waiter</span></div>
               </div>
             </div>
           </div>
@@ -294,14 +391,11 @@
       </div>
     </section>
 
-    <!-- 5. FAQ -->
+    <!-- 6. FAQ -->
     <section class="faq" id="faq">
       <div class="wrap wrap--narrow">
-        <header class="sec-head reveal">
-          <p class="eyebrow">FAQ</p>
-          <h2>Questions owners ask us.</h2>
-        </header>
-        <details>
+        <h2 class="sec-title reveal">Frequently asked questions</h2>
+        <details open>
           <summary>Do my guests need to download an app?</summary>
           <p>No. Scanning the QR code opens the menu in the phone’s browser. It works on any recent Android phone or iPhone.</p>
         </details>
@@ -322,32 +416,140 @@
           <p>Yes. The menu shows your restaurant’s name and colours, and every table gets its own QR code.</p>
         </details>
         <details>
+          <summary>What does the owner see?</summary>
+          <p>A live dashboard with today’s orders, net sales, average spend and cancellations against yesterday, tables occupied, orders waiting and top sellers. Past orders can be filtered by date, status, table and staff.</p>
+        </details>
+        <details>
+          <summary>What do staff and the kitchen use?</summary>
+          <p>Staff get tables, waiter calls and orders on their phone and can place an order for a table. The kitchen gets every order on a tablet, with wait times and dish totals. Both can mark a dish sold out.</p>
+        </details>
+        <details>
           <summary>How do I get started?</summary>
           <p>Message us on WhatsApp or email. We’ll show you a live demo and talk through what your restaurant needs.</p>
         </details>
       </div>
     </section>
 
-    <!-- 6. Final CTA -->
+    <!-- 7. Final CTA -->
     <section class="cta" id="contact">
-      <div class="wrap cta__inner reveal">
-        <h2>Ready to let your tables order?</h2>
-        <p class="lead">See Mesha Dine running on your own phone in a quick demo.</p>
-        <div class="hero__ctas">
-          <a class="btn btn--light" href="#contact" data-cta="whatsapp">Chat on WhatsApp</a>
-          <a class="btn btn--ghost-light" href="#contact" data-cta="email">Email us</a>
+      <div class="wrap">
+        <div class="cta__band reveal">
+          <div class="cta__copy">
+            <h2>Ready to run your restaurant on Mesha?</h2>
+            <p class="lead">See the guest menu, kitchen board and owner dashboard in a quick demo.</p>
+            <div class="ctas">
+              <a class="btn" href="#contact" data-cta="whatsapp">Chat on WhatsApp<span class="btn__chev" aria-hidden="true"></span></a>
+              <a class="btn btn--ghost-light" href="#contact" data-cta="email">Email us</a>
+            </div>
+          </div>
+          <div class="cta__shot" aria-hidden="true"><div class="phone"><span class="sb"><i></i></span><div class="ui ui--guest" data-tpl="guest"></div></div></div>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="foot">
-    <div class="wrap foot__inner">
-      <a class="logo" href="#top"><img src="assets/icons/favicon.svg" alt="" width="28" height="28"><span>Mesha Dine</span></a>
-      <p>QR table ordering for restaurants in India.</p>
-      <a href="#contact" data-cta="email" data-cta-label>Email us</a>
-      <p class="foot__copy">© <span data-year>2026</span> Mesha Dine</p>
+    <div class="wrap">
+      <div class="foot__top">
+        <a class="logo" href="#top" aria-label="Mesha Dine home"><img src="assets/img/logo.svg" alt="" width="113" height="26"></a>
+        <p>Run your whole restaurant from one place.</p>
+      </div>
+      <div class="foot__cols">
+        <nav aria-label="Footer">
+          <h2>Sections</h2>
+          <a href="#how">How it works</a>
+          <a href="#use-cases">Use cases</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div>
+          <h2>Contact</h2>
+          <a href="#contact" data-cta="email" data-cta-label>Email us</a>
+          <a href="#contact" data-cta="whatsapp">WhatsApp</a>
+        </div>
+      </div>
+      <p class="foot__copy">© <span data-year>2026</span> Mesha Dine. Ordering, kitchen and insights for restaurants in India.</p>
     </div>
   </footer>
+  <!-- Screens used in more than one place; main.js copies each into its [data-tpl] slots. -->
+  <template id="tpl-guest">
+    <div class="g-scroll">
+      <img class="g-logo" src="assets/img/logo.svg" alt="" width="113" height="26">
+      <div class="g-pin"><span>Table PIN code:</span><b>8675</b><i class="g-toggle"></i></div>
+      <div class="g-search"><span>Search dishes...</span><i></i></div>
+      <p class="g-hi">Good evening, <b>Riya</b></p>
+      <div class="g-chips"><span><i class="mark mark--veg"></i>Veg only</span><span><i class="mark mark--non"></i>Non-Veg</span><span>Best Sellers</span></div>
+      <p class="g-sec">Our Specials</p>
+      <div class="g-dishes">
+      <div class="g-dish"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Malabar Chicken Biryani</b><span class="g-row">₹320.00<span class="g-ctl"><span class="g-step">−<span>01</span>+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Butter Chicken</b><span class="g-row">₹290.00<span class="g-ctl"><span class="swap g-target"><span class="g-add was">+</span><span class="g-step now">−<span>01</span>+</span></span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-paneer.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--veg"></i></span><b>Paneer Tikka</b><span class="g-row">₹240.00<span class="g-ctl"><span class="g-step">−<span>01</span>+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-kebab.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i></span><b>Chicken Seekh Kebab</b><span class="g-row">₹280.00<span class="g-ctl"><span class="g-add">+</span></span></span></div>
+      </div>
+      <p class="g-sec">Best Combos</p>
+      <div class="g-dishes">
+      <div class="g-dish"><img src="assets/img/food-curry.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--non"></i>Best seller</span><b>Chicken Curry + Butter Naan Combo</b><span class="g-row">₹350.00<span class="g-ctl"><span class="g-add">+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-combo.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--veg"></i></span><b>Paneer Butter Masala + Rice Combo</b><span class="g-row">₹300.00<span class="g-ctl"><span class="g-add">+</span></span></span></div>
+      <div class="g-dish"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><span class="g-tag"><i class="mark mark--veg"></i>Best seller</span><b>Kerala Meals</b><span class="g-row">₹220.00<span class="g-ctl"><span class="g-step">−<span>01</span>+</span></span></span></div>
+      </div>
+    </div>
+    <span class="g-menu">Menu</span>
+    <div class="g-cart"><b class="swap"><span class="was">3 items · ₹780.00</span><span class="now">4 items · ₹1,070.00</span></b><span>View table cart →</span></div>
+    <div class="g-nav"><span class="is-on">Home</span><span>My Order</span><span>Waiter</span></div>
+  </template>
+  <template id="tpl-start">
+    <div class="l-hero"><span class="l-logo"><img src="assets/img/logo.svg" alt="" width="113" height="26"></span></div>
+    <img class="l-art" src="assets/img/welcome.svg" alt="" width="200" height="200">
+    <p class="l-h">Start a New Dining Session?</p>
+    <p class="l-p">Table “<b>1</b>” is empty, would you like to start a new session in this table?</p>
+    <span class="l-btn l-start"><i class="l-ic"></i>Start a New Table</span>
+  </template>
+  <template id="tpl-admin">
+    <div class="a-side">
+      <img src="assets/img/logo.svg" alt="" width="113" height="26">
+      <span class="is-on">▦ Dashboard</span><span>☰ Orders</span><span>◫ Menu</span>
+      <p class="a-user"><i>AT</i><span><b>Anjali Thomas</b>Manager</span></p>
+    </div>
+    <div class="a-main">
+      <p class="a-crumb">Dashboard</p>
+      <p class="a-h">Overview</p>
+      <div class="a-grid">
+        <div class="a-left">
+          <div class="a-kpis">
+            <p class="a-card"><span>Orders</span><b>86</b><small><em class="up">+12%</em> since yesterday</small></p>
+            <p class="a-card"><span>Net Sales</span><b>₹48,260.00</b><small><em class="up">+8%</em> since yesterday</small></p>
+            <p class="a-card"><span>Avg. Spent</span><b>₹561.16</b><small><em class="down">-4%</em> since yesterday</small></p>
+            <p class="a-card"><span>Cancellations</span><b>2</b><small><em class="up">-50%</em> since yesterday</small></p>
+          </div>
+          <div class="a-card a-live">
+            <p class="a-h2">Live Operations <span class="a-tag">Live</span></p>
+            <div class="a-stats">
+              <p><b class="swap"><span class="was">11</span><span class="now">12</span></b><small>/20</small><span>Tables occupied</span></p>
+              <p><b class="swap"><span class="was">6</span><span class="now">7</span></b><span>Orders waiting</span></p>
+            </div>
+            <p class="a-oldest"><span><span>Oldest order waiting</span><b>24 min</b></span><span class="a-btn">View Orders →</span></p>
+          </div>
+          <div class="a-card">
+            <p class="a-h2">Recent Orders</p>
+            <p class="a-muted">Latest orders placed today</p>
+            <div class="a-recent"><div class="a-track">
+              <p class="a-order"><img src="assets/img/food-combo.webp" alt="" width="320" height="320"><b>Paneer Butter Masala + Rice Combo</b><span>Table <em>A3</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹682.50</strong></span></p>
+              <p class="a-order"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><b>Malabar Chicken Biryani</b><span>Table <em>A5</em></span><span>Items <em>03</em></span><span class="a-row"><span class="pill pill--info">Preparing</span><strong>₹955.50</strong></span></p>
+              <p class="a-order"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><b>Chilli Chicken</b><span>Table <em>A6</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹640.50</strong></span></p>
+              <p class="a-order"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><b>Kerala Meals</b><span>Table <em>A2</em></span><span>Items <em>02</em></span><span class="a-row"><span class="pill pill--warn">In kitchen</span><strong>₹483.00</strong></span></p>
+            </div></div>
+          </div>
+        </div>
+        <div class="a-card a-items">
+          <p class="a-h2">Items Overview</p>
+          <div class="a-itemstats"><p><span>Total Items</span><b>17</b></p><p><span>Out</span><b>0</b></p></div>
+          <p class="a-h3">Top sellers</p>
+          <p class="a-seller"><img src="assets/img/food-biryani.webp" alt="" width="320" height="320"><span>Malabar Chicken Biryani</span><b>24</b></p>
+          <p class="a-seller"><img src="assets/img/food-butter.webp" alt="" width="320" height="320"><span>Butter Chicken</span><b>19</b></p>
+          <p class="a-seller"><img src="assets/img/food-chilli.webp" alt="" width="320" height="320"><span>Chilli Chicken</span><b>14</b></p>
+          <p class="a-seller"><img src="assets/img/food-meals.webp" alt="" width="320" height="320"><span>Kerala Meals</span><b>12</b></p>
+        </div>
+      </div>
+    </div>
+  </template>
 </body>
 </html>

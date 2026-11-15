@@ -1,3 +1,5 @@
+document.querySelectorAll("[data-tpl]").forEach((slot) => slot.append(document.getElementById(`tpl-${slot.dataset.tpl}`).content.cloneNode(true)));
+
 // Demo contact details. TODO: replace both placeholders before going live.
 const CONTACT = {
   whatsapp: "91XXXXXXXXXX", // international format, digits only
@@ -23,21 +25,88 @@ const onScrollNav = () => nav.classList.toggle("is-scrolled", scrollY > 8);
 addEventListener("scroll", onScrollNav, { passive: true });
 onScrollNav();
 
-// How it works: the step nearest the middle of the screen drives the phone screen.
-const howPhone = document.querySelector(".phone--how");
-const steps = document.querySelectorAll(".step");
-const stepObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      steps.forEach((s) => s.classList.toggle("is-active", s === e.target));
-      howPhone.dataset.step = e.target.dataset.step;
-    });
-  },
-  // Phones: the mockup covers the top half, so the active band sits lower.
-  { rootMargin: matchMedia("(min-width: 860px)").matches ? "-45% 0px -45% 0px" : "-62% 0px -25% 0px" },
-);
-steps.forEach((s) => stepObserver.observe(s));
+// Theme: the OS decides until the visitor picks one; the pick is saved (head script restores it).
+const root = document.documentElement;
+const themeBtn = document.querySelector(".theme");
+const themeMeta = document.querySelector('meta[name="theme-color"]');
+const osDark = matchMedia("(prefers-color-scheme: dark)");
+const isDark = () => (root.dataset.theme || (osDark.matches ? "dark" : "light")) === "dark";
+const syncTheme = () => {
+  themeBtn.setAttribute("aria-pressed", String(isDark()));
+  themeMeta.content = isDark() ? "#171717" : "#fef9f4";
+};
+themeBtn.addEventListener("click", () => {
+  root.dataset.theme = isDark() ? "light" : "dark";
+  try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+  syncTheme();
+});
+osDark.addEventListener("change", syncTheme);
+syncTheme();
+
+// Phones: section links sit behind a menu button.
+const menuBtn = document.querySelector(".nav__menu");
+const navLinks = document.getElementById("nav-links");
+const setMenu = (open) => {
+  menuBtn.setAttribute("aria-expanded", String(open));
+  navLinks.classList.toggle("is-open", open);
+};
+menuBtn.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
+navLinks.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && navLinks.classList.contains("is-open")) { setMenu(false); menuBtn.focus(); }
+});
+
+// How it works: the open step picks the phone screen. While the grid is pinned (sticky),
+// scroll progress through the track picks the open step; a click scrolls to its step.
+const howScreens = [...document.querySelectorAll(".how__scr")];
+const howTrack = document.querySelector(".how__track");
+const howGrid = howTrack.querySelector(".how__grid");
+const howSteps = [...howTrack.querySelectorAll("details")];
+const howPinned = () => getComputedStyle(howGrid).position === "sticky";
+const howRange = () => howTrack.offsetHeight - howGrid.offsetHeight;
+const showScreen = (name) => howScreens.forEach((s) => s.classList.toggle("is-on", s.dataset.screen === name));
+const syncHowStep = () => {
+  if (!howPinned()) return;
+  const progress = (howGrid.getBoundingClientRect().top - howTrack.getBoundingClientRect().top) / howRange();
+  const at = Math.max(0, progress * howSteps.length);
+  const i = Math.min(howSteps.length - 1, Math.floor(at));
+  if (!howSteps[i].open) howSteps[i].open = true;
+};
+howSteps.forEach((step, i) => {
+  step.addEventListener("toggle", () => step.open && showScreen(step.dataset.screen));
+  step.querySelector("summary").addEventListener("click", (e) => {
+    if (!howPinned()) return;
+    e.preventDefault();
+    const stickyTop = parseFloat(getComputedStyle(howGrid).top);
+    const into = (howRange() * (i + 0.2)) / howSteps.length;
+    const top = scrollY + howTrack.getBoundingClientRect().top - stickyTop + into;
+    scrollTo({ top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
+});
+addEventListener("scroll", syncHowStep, { passive: true });
+syncHowStep();
+
+// Use cases: ARIA tabs with arrow-key navigation.
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+const selectTab = (tab) => {
+  tabs.forEach((t) => {
+    const on = t === tab;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  });
+};
+tabs.forEach((tab, i) => {
+  tab.addEventListener("click", () => selectTab(tab));
+  tab.addEventListener("keydown", (e) => {
+    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    const target = tabs[(next + tabs.length) % tabs.length];
+    selectTab(target);
+    target.focus();
+  });
+});
 
 // Brand preview: re-skin the phone like the diner app does per restaurant (customer-fe branding.ts).
 const luminance = (hex) => {
@@ -68,7 +137,7 @@ const swatches = [...document.querySelectorAll("[data-brand]")];
 
 // Restaurant-friendly palette shared by both pickers.
 const PALETTE = [
-  ["#971c1c", "Chilli red"], ["#c2410c", "Paprika"], ["#ee8e1d", "Saffron"], ["#ffd400", "Turmeric"],
+  ["#971c1c", "Chilli red"], ["#ff3c00", "Mesha orange"], ["#ee8e1d", "Saffron"], ["#ffd400", "Turmeric"],
   ["#c9a227", "Mustard"], ["#7a3e00", "Chai"], ["#00392b", "Forest"], ["#2f6f5e", "Mint leaf"],
   ["#0f766e", "Teal"], ["#2d3a8c", "Indigo"], ["#e8618c", "Rose"], ["#1f1512", "Charcoal"],
 ];
@@ -167,7 +236,6 @@ function checkPreset(btn) {
 function applyPreset(btn) {
   primaryInput.value = btn.dataset.brand;
   secondaryInput.value = btn.dataset.accent;
-  nameInput.value = btn.dataset.name;
   checkPreset(btn);
   render();
 }
@@ -212,7 +280,8 @@ logoInput.addEventListener("change", () => {
 });
 logoClear.addEventListener("click", () => { setLogo(null); logoInput.focus(); });
 
-applyPreset(swatches[0]);
+checkPreset(null);
+render();
 
 // Motion fallback for browsers without CSS scroll timelines (Firefox, older Safari).
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
