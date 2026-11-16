@@ -2,8 +2,8 @@ document.querySelectorAll("[data-tpl]").forEach((slot) => slot.append(document.g
 
 // Demo contact details. TODO: replace both placeholders before going live.
 const CONTACT = {
-  whatsapp: "91XXXXXXXXXX", // international format, digits only
-  email: "hello@example.com",
+  whatsapp: "919074927506", // international format, digits only
+  email: "contact@mesha.online",
   message: "Hi Mesha Dine, I'd like a demo for my restaurant.",
 };
 
